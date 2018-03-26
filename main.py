@@ -1,10 +1,12 @@
+#-*- coding: Utf-8 -*-
 import re
 
 def main():
-	print("Hi ! I'm TALBOT your new assistant, please select the mode:","1 - Backchannels Mode","2 - Basic Mode","3 - Advanced Mode :")
-	myInput = input("")
-	while not re.search('\d+',myInput) and myInput!=1 and myInput!=2 and myInput!=3 :
-		print("Oh, unfortunately,your input is not correct, please give a number between 1 and 3")
+	print("Bonjour ! Je m'appelle TALBOT, votre nouvel assistant, veuillez selectionner un mode:","1 - Backchannels Mode","2 - Mode Basique","3 - Mode Avancé:")
+	myInput = input()
+	print(myInput)
+	while myInput!=1 and myInput!=2 and myInput!=3:
+		print("Oh, malheuresement,votre choix semble incorrect, veuillez choisir un nombre entre 1 et 3")
 		myInput = input("")
 
 
