@@ -24,6 +24,11 @@ def mode2():
 		MyAnswer = answer(myInput)
 		print(MyAnswer)
 
+def mode3():
+	print("Hello love, I am Soraya, I will help uncover the secrets of your soul.")
+	from modeLove import modeLove
+	modeLove()
+
 def answer(myInput) :
 	mots = myInput.lower().split()
 	for t in mots :
@@ -65,9 +70,6 @@ def chooseAnswer(category):
 	elif category == "loisir" :
 		return answerLoisir[nombreDeBase]
 
-def mode3():
-	1
-
 
 
 if __name__ == "__main__":
@@ -82,6 +84,6 @@ if __name__ == "__main__":
 		mode1()
 	elif args.mode==2 :
 		mode2()
-	else :
+	elif args.mode==3 :
 		mode3()
 
