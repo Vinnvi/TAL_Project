@@ -44,9 +44,8 @@ def mode2():
 			print(MyAnswer[0])
 
 def mode3():
-	print("Hello love, I am Soraya, I will help uncover the secrets of your soul.")
-	from modeLove import modeLove
-	modeLove()
+	from modeAnimal import modeAnimal
+	modeAnimal()
 
 def answer2(myInput,n) :
 	mots = myInput.lower().split()
