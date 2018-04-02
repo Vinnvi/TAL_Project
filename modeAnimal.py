@@ -4,6 +4,7 @@ import random
 import time
 import sys
 
+answerRight = 0
 yes = ["yes","why not","i agree","up for it","like"]
 no = ["no","not sure","decline","not up for it"]
 idk = ["idk","don't know","not sure","not really sure"]
@@ -34,6 +35,7 @@ def delay_print(s):
         time.sleep(0.01)
 
 def modeAnimal():
+    global answerRight
     delay_print("Hello and welcome blabla\n")
     delay_print("Here come our first challenger, do not make the crowd waiting, give us a name\n")
     answer = input()
@@ -45,9 +47,9 @@ def modeAnimal():
     choice = answerYesOrNo(answer)
     if(choice):
         delay_print("Perfect, we have a profesional here.\n")
-    else:
+    else :
         delay_print("I suppose it is time for explanations then.\n")
-    delay_print("Then now, choose the game you are going to participate. Before you  are two interrupters, press 1 if you have an animal in your head or 2 if you want to guess ours.\n")
+    delay_print("Then now, choose the game you are going to participate. Before you  are two interrupters, press 1 if you have an animal in mind or 2 if you want to guess ours.\n")
     answerRight = 0
     while answerRight == 0 :
         answer = input()
@@ -61,7 +63,18 @@ def modeAnimal():
             delay_print("Do you not know how to press a button ? Do it, 1 or 2\n")
 
 def modeAnswering() :
-    return 0
+    global answerRight
+    answerRight = 0
+    delay_print("Answering huh? Then do you already have an animal in mind?\n")
+    while answerRight == 0 :
+        answer = input()
+        choice = answerYesOrNo(answer)
+        if(choice) :
+            answerRight = 1
+            delay_print("Well then, ladies and gentlemen, the game can begin !\n")
+        else :
+            delay_print("Not yet ? Come on, the crowd is on fire, find us an animal !\n")
+    delay_print("I will ask you a few questions, do not hesitate to tell me if you do not know or if you are not sure of the answer !\n")
 
 def modeGuessing() :
     return 0
