@@ -12,33 +12,34 @@ classes = ["mammal","bird","fish","reptile", "amphibian","insect"]
 preys = ["mice", "flies", "fish"]
 location = ["south america", "africa", "Europe", "asia", "australia", "north america"]
 status = ["endangered", "safe", "least concern"]
-dataGuessing = {'color': [], 'species': [] }
+dataGuessing = {'colors': [], 'species': [] }
+dataAnswers = []
 animals = {
 'crow': {'colors':["black"], 'species':["bird"]},
 'lion': {'colors':["yellow", "brown"], 'species':["mammal"]},
-'panda': {'colors':["black", "white"], 'species':["mammal"]},
+'panda': {'colors':["black and white"], 'species':["mammal"]},
 'tiger': {'colors':["yellow", "brown","black","white"], 'species':["mammal"]},
-'zebra': {'colors':["black","white"], 'species':["mammal"]}
+'zebra': {'colors':["black and white"], 'species':["mammal"]}
 }
 #------------- READING -------------
-yes = ["yes","why not","i agree","up for it","like"]
+yes = ["yes","why not","i agree","up for it","like", "suppose", "correct", "case", "indeed", "could be"]
 no = ["no","not sure","decline","not up for it"]
 idk = ["idk","don't know","not sure","not really sure"]
 #------------- CONVERSING -------------
 answerName = [" That's a weird name but why not, everyone, a row of applause for ",
 " ! The name of a champion ! "]
-beforeAsking_Lv1 = ["So tell me ", "You look extremely confident ", "I would ask...", "What is in your head, Hummm", "I hope it is an easy one", "Hummmm", "" "Let me think about it a little"]
+beforeAsking_Lv1 = ["So tell me ", "You look extremely confident ", "I would ask...", "What is in your head, Hummm", "I hope it is an easy one", "Hummmm", "Let me think about it a little"]
 beforeAsking_Lv2 = ["You are quite tricky, aren't you ", "I feel so close", "You are testing my patience ","Oh my, it doesn't look good", "I will take that smile out of your face "]
 beforeAsking_Lv3 = ["What goddamn animal is left ?", "Come on brain, work !"]
+beforeAsking = [beforeAsking_Lv1,beforeAsking_Lv2,beforeAsking_Lv3]
 
-dataAnswers = []
 def delay_print(s):
     for c in s:
         sys.stdout.write(c)
         sys.stdout.flush()
         time.sleep(0.01)
 
-#Add name to queries and smalltalk to make it more personal
+#Add name to some queries and smalltalks to make it more personal
 def updateDataWithName(name):
     answerName[0] = name + "?" + answerName[0] + name + "!"
     answerName[1] = name + answerName[1]
@@ -51,30 +52,48 @@ def updateDataWithName(name):
 # - category = the answer correspond to a category (colors, species...)
 # - criteria = the criteria tested on this category (red, yellow...)
 # - bool = if that criteria is valid for the animal
-def update_list(tabPossibilities, criteria, answer, bool):
+def update_list(tabPossibilities, category, answer, bool):
     animalToSupp = [] #Animals that we are going to remove at the end
     for animal in animals :
         animalPossibility = 0
-        for data in tabPossibilities.get(animal).get(criteria) :
+        for data in tabPossibilities.get(animal).get(category) :
             if bool == 1 and data == answer : #Should have the answer
                 animalPossibility = 1
-            elif bool == 0 and data != answer and criteria != "colors" : #Shouldn't have the answer
+            elif bool == 0 and data != answer : #Shouldn't have the answer
                 animalPossibility = 1
         if animalPossibility == 0 :
             animalToSupp.append(animal) #We will remove it outside of the loop
     for wrongAnimal in animalToSupp :
         tabPossibilities.pop(wrongAnimal)
+    if (not tabPossibilities):
+        print("List empty\n")
     return tabPossibilities #Reduced tab of possibilities
 
 #Find a question to ask to reduce possible animals
-def askQuestion(tabPossibilities):
+def askQuestion(tabPossibilities, lv):
+    if(random.randint(0,1)) :
+        delay_print(beforeAsking[lv][random.randint(0,4)]+"\n")
     animalToTest, category, criteriaToAsk = findCriteriaToAsk(tabPossibilities)
-
+    delay_print("So is your animal... " + criteriaToAsk +"?"+"\n")
+    answer = input()
+    if answerYesOrNo(answer) :
+        update_list(tabPossibilities,category,criteriaToAsk,1)
+    else :
+        update_list(tabPossibilities,category,criteriaToAsk,0)
+    dataGuessing.get(category).append(criteriaToAsk)
+    print ("ici")
+    print (tabPossibilities)
     return 0
 #Find a criteria that was not already asked and present in our possibilities
 def findCriteriaToAsk(tabPossibilities):
-    animalToTest = random.choice(tabPossibilities)
-    return 0
+    while(1):
+        animalToTest = random.choice(list(tabPossibilities.keys()))
+        dataAnimal = tabPossibilities.get(animalToTest)
+        for category in dataAnimal:
+            for val in dataAnimal.get(category):
+                if val not in dataGuessing.get(category):
+                    return animalToTest, category, val
+    return "","",""
 
 def modeAnimal():
     global answerRight, name
@@ -119,12 +138,11 @@ def modeAnswering() :
     #         delay_print("Not yet ? Come on, the crowd is on fire, find us an animal !\n")
     # delay_print("I will ask you a few questions, do not hesitate to tell me if you do not know or if you are not sure of the answer !\n")
     tabPossibilities = animals
-    print(tabPossibilities)
-    tabPossibilities = update_list(tabPossibilities,"colors","black",1)
-    print(tabPossibilities)
-    tabPossibilities = update_list(tabPossibilities,"species","bird",1)
-    print(tabPossibilities)
-    print(test)
+
+    askQuestion(tabPossibilities,0)
+    askQuestion(tabPossibilities,0)
+    askQuestion(tabPossibilities,0)
+    askQuestion(tabPossibilities,0)
 
 def modeGuessing() :
     return 0
