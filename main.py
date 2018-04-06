@@ -49,6 +49,8 @@ def mode2():
 			print(r[0])
 			lastAnswer1 = r[1]
 
+		elif MyAnswer[0] == "":
+			1
 		else :
 			print(MyAnswer[0])
 
@@ -58,28 +60,58 @@ def mode3():
 
 def answer2(myInput,n) :
 	mots = myInput.lower().split()
-
-	for t in mots :
-		for m in sante:
-			if t == m :
-				answer1 = chooseAnswer("sante",n)
-				return answer1
-		for m in famille :
-			if t == m :
-				answer1 = chooseAnswer("famille",n)
-				return answer1
-		for m in pays :
-			if t == m :
-				answer1 = chooseAnswer("pays",n)
-				return answer1
-		for m in travail :
-			if t == m :
-				answer1 = chooseAnswer("travail",n)
-				return answer1
-		for m in loisir :
-			if t == m :
-				answer1 = chooseAnswer("loisir",n)
-				return answer1
+	end = ""
+	i = 0
+	if mots[0] == "i" :
+		if mots[1] == "was" :
+			for t in mots :
+				if i != 0 and i != 1 :
+					end = end + " " + t
+				i = i+1
+			print("Why were you"+end+" ?")
+			return "",0
+		if mots[1] == "will" and mots[2] == "be" :
+			for t in mots :
+				if i != 0 and i != 1 and i != 2 :
+					end = end + " " + t
+			i = i+1
+			print("Why you wil be"+end+" ?")
+			return "",0
+		if mots[1] == "am" :
+			for t in mots :
+				if i != 0 and i != 1 :
+					end = end + " " + t
+				i = i+1
+			print("Why are you"+end+" ?")
+			return "",0
+	elif mots[0] == "i'm" :
+		for t in mots :
+			if i != 0 :
+				end = end + " " + t
+			i = i+1
+		print("Why are you"+end+" ?")
+		return "",0
+	for t in mots : 
+			for m in sante:
+				if t == m :
+					answer1 = chooseAnswer("sante",n)
+					return answer1
+			for m in famille :
+				if t == m :
+					answer1 = chooseAnswer("famille",n)
+					return answer1
+			for m in pays :
+				if t == m :
+					answer1 = chooseAnswer("pays",n)
+					return answer1
+			for m in travail :
+				if t == m :
+					answer1 = chooseAnswer("travail",n)
+					return answer1
+			for m in loisir :
+				if t == m :
+					answer1 = chooseAnswer("loisir",n)
+					return answer1
 
 	return "erreur",n
 
