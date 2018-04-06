@@ -3,43 +3,54 @@ import re
 import random
 
 sante = ["health","cancer","disease","pneumonia","pain","head","stomach","belly","tired","suffering","suffer","hiv","aids"]
-famille = ["parents","son","daughter","father","dad","daddy","mother","mom","mum","mommy","sister","brother","grandparents","granny","grannies","grandfather","grandmother","cousin","family","wife","husband","uncle","aunt"]
-pays = ["country","world","France","germany","england","spain","Europe","Brazil","Asia","Canada","USA","Russia","Italia"]
-travail = ["university","society","company","internship","report","cojleague","co-worker","superior","supervisor","manager","office","project","work"]
-loisir = ["sport","movie","movies","danse","video games","reading","walk","sleep","party","television","music"]
+famille = ["parents","son","daughter","kids","children","father","dad","daddy","mother","mom","mum","mommy","sister","brother","grandparents","granny","grannies","grandfather","grandmother","cousin","family","wife","husband","uncle","aunt"]
+pays = ["country","world","france","germany","england","spain","europe","brazil","asia","canada","usa","russia","italy"]
+travail = ["university","society","company","internship","report","cojleague","co-worker","superior","supervisor","manager","office","project","work","job"]
+loisir = ["sport","movie","movies","danse","video games","reading","walk","sleep","party","television","music","cinema"]
 
-answerSante = ["Tell me more","Very good, continue please, it's important for me and of course for you"]
-answerFamille = ["Tell me more about your family","Continuez à partager avec moi ce que vous pensez de votre famille"]
-answerPays = ["Vous souhaitez faire un voyage ?","parlez moi de votre destination de rêve"]
-answerTravail = ["le travail vous inquiète ?","Decrivez votre travail"]
-answerLoisir = ["Parlez moi de ce qui vous passionne","Cette activité vous passionne ?"]
+answerSante = ["Tell me more","Ohh I'm sorry to hear that, please continue, it's important for me and of course for you"]
+answerFamille = ["Tell me more about your family","Oh you talk about your family, it seems to be important for you"]
+answerPays = ["Would you like to travel ? ","Do you have any dream destination ?"]
+answerTravail = ["Are you worried about something, concerning your work ?","Contiue to talk about work, that's interesting"]
+answerLoisir = ["Talk about what you like ","Oh, this activity is your passion? Later, it could be your work!"]
 
 
 answerMode1 = ["well...","hummmm...","ehhhh","humm okay I suppose...","continue please",]
 
+
+
 def mode1():
 	print("Tell me something:")
-
+	lastAnswer1 = -1
 	while 1==1:
 		myInput=input()
-		myInput = answer(myInput)
-		print(myInput)
+		myInput = answer(myInput,lastAnswer1)
+		lastAnswer1 = myInput[1]
+		print(myInput[0])
 
 
-def answer(myInput,n):
+def answer(myInput,lastAnswer1):
 	nombreDeBase = random.randint(0,4)
-	return answerMode1[nombreDeBase]
+	while lastAnswer1 == nombreDeBase:
+		nombreDeBase = random.randint(0,4)
+	lastAnswer1 = nombreDeBase
+	return answerMode1[nombreDeBase],lastAnswer1
 
 def mode2():
-	print("Mode 2 selectionné")
 	print("So , what you want to tell me ? Do you have any problem ?")
 	n = -1
+	lastAnswer1 = -1
 	while(1 == 1):
 		myInput = input()
 		MyAnswer = answer2(myInput,n)
 		n = MyAnswer[1]
 		if MyAnswer[0] == "erreur":
-			print(answer(myInput,MyAnswer[1]))
+			r = answer(myInput,lastAnswer1)
+			print(r[0])
+			lastAnswer1 = r[1]
+
+		elif MyAnswer[0] == "":
+			1
 		else :
 			print(MyAnswer[0])
 
@@ -49,28 +60,58 @@ def mode3():
 
 def answer2(myInput,n) :
 	mots = myInput.lower().split()
-
-	for t in mots :
-		for m in sante:
-			if t == m :
-				answer1 = chooseAnswer("sante",n)
-				return answer1
-		for m in famille :
-			if t == m :
-				answer1 = chooseAnswer("famille",n)
-				return answer1
-		for m in pays :
-			if t == m :
-				answer1 = chooseAnswer("pays",n)
-				return answer1
-		for m in travail :
-			if t == m :
-				answer1 = chooseAnswer("travail",n)
-				return answer1
-		for m in loisir :
-			if t == m :
-				answer1 = chooseAnswer("loisir",n)
-				return answer1
+	end = ""
+	i = 0
+	if mots[0] == "i" :
+		if mots[1] == "was" :
+			for t in mots :
+				if i != 0 and i != 1 :
+					end = end + " " + t
+				i = i+1
+			print("Why were you"+end+" ?")
+			return "",0
+		if mots[1] == "will" and mots[2] == "be" :
+			for t in mots :
+				if i != 0 and i != 1 and i != 2 :
+					end = end + " " + t
+			i = i+1
+			print("Why you wil be"+end+" ?")
+			return "",0
+		if mots[1] == "am" :
+			for t in mots :
+				if i != 0 and i != 1 :
+					end = end + " " + t
+				i = i+1
+			print("Why are you"+end+" ?")
+			return "",0
+	elif mots[0] == "i'm" :
+		for t in mots :
+			if i != 0 :
+				end = end + " " + t
+			i = i+1
+		print("Why are you"+end+" ?")
+		return "",0
+	for t in mots : 
+			for m in sante:
+				if t == m :
+					answer1 = chooseAnswer("sante",n)
+					return answer1
+			for m in famille :
+				if t == m :
+					answer1 = chooseAnswer("famille",n)
+					return answer1
+			for m in pays :
+				if t == m :
+					answer1 = chooseAnswer("pays",n)
+					return answer1
+			for m in travail :
+				if t == m :
+					answer1 = chooseAnswer("travail",n)
+					return answer1
+			for m in loisir :
+				if t == m :
+					answer1 = chooseAnswer("loisir",n)
+					return answer1
 
 	return "erreur",n
 
@@ -105,7 +146,7 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 
 	print("Hello, the following list represents modes you can use :\n1 - backchannels mode\n2 - Basic mode\n3 - Advanced mode")
-	print("Vous avez choisi le mode ",args.mode)
+	print("And you choose mode ",args.mode)
 	if args.mode==1 :
 		mode1()
 	elif args.mode==2 :
