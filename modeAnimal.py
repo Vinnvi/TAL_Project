@@ -13,7 +13,7 @@ preys = ["mice", "flies", "fish"]
 location = ["south america", "africa", "Europe", "asia", "australia", "north america"]
 status = ["endangered", "safe", "least concern"]
 dataGuessing = {
-'bird' : {'colors':[], 'size':[]},
+'bird' : {'colors':[], 'size':[], 'keyword':[]},
 'fish' : {'colors':[], 'size':[], 'habitat':[]},
 'insect' : {'colors':[], 'size':[], 'members':[]},
 'mammal' : {'colors':[], 'species':[], 'size':[], 'surrounding':[]}
@@ -21,7 +21,9 @@ dataGuessing = {
 dataAnswers = []
 animals = {
 'bird' : {
-'crow': {'colors':["black"], 'size':["small"]}
+'crow': {'colors':["black"], 'size':["small"],'keyword':[]},
+'eagle': {'colors':["black"], 'size':["medium"],'keyword':["sigil of america"]},
+'falcon': {'colors':["black"], 'size':["big"], 'keyword':[]}
 },
 'fish' : {
 'salmon': {'colors':[], 'size':["small"], 'habitat':["watefall","rivers"]}
@@ -39,9 +41,9 @@ animals = {
 }
 }
 #------------- READING -------------
-yes = ["yes","why not","i agree","up for it","like", "suppose", "correct", "case", "indeed", "could be"]
+yes = ["yes","why not","i agree","up for it","like", "suppose", "correct", "case", "indeed", "could be", "that's it", "it is"]
 no = ["no","not sure","decline","not up for it"]
-idk = ["idk","don't know","not sure","not really sure"]
+idk = ["idk","don't know","not sure","not really sure","neither"]
 #------------- CONVERSING -------------
 answerName = [" That's a weird name but why not, everyone, a row of applause for ",
 " ! The name of a champion ! "]
@@ -89,6 +91,7 @@ def update_list(tabPossibilities, category, answer, bool):
         print("List empty\n")
     return tabPossibilities #Reduced tab of possibilities
 
+#first filter to define the class of the animal
 def firstFilter(tabPossibilities):
     nbQuery = 0
     for valClass in dataGuessing.keys():
@@ -99,12 +102,64 @@ def firstFilter(tabPossibilities):
             return valClass
     return ""
 
+def answerClassAnimal():
+    numberKeyWords = 0
+    while numberKeyWords == 0:
+        myInput = input()
+        mots = myInput.lower().split()
+        classAnimal = ""
+        for t in mots :
+            if(t == "bird"):
+                classAnimal = "bird"
+                numberKeyWords += 1
+            elif (t == "mammal"):
+                classAnimal = "mammal"
+                numberKeyWords += 1
+            elif (t == "fish"):
+                classAnimal = "fish"
+                numberKeyWords += 1
+            elif (t == "insect"):
+                classAnimal = "insect"
+                numberKeyWords += 1
+        if numberKeyWords == 0:
+            delay_print("What ? just give me a class to display, mammal, fish, insect or bird ?")
+        elif numberKeyWords == 1:
+            return classAnimal
+        else:
+            delay_print("I'm not sure to understand which class you want...")
+            return None
+def displayListAnimals():
+    delay_print("So tell me, which class of animal are you interested in, birds, insects, mamals of fishs?")
+    classAnimal = answerClassAnimal()
+    if classAnimal:
+        displayAnimal(classAnimal)
+
+def displayAnimal(classAnimal):
+    print("#####################")
+    print("This is the category ", classAnimal.upper()," :")
+    finalDisplay = ""
+    for animal in animals.get(classAnimal):
+        finalDisplay = " ".join([finalDisplay, animal.upper()," - "])
+        anim = animals.get(classAnimal).get(animal)
+        for category in anim:
+            valCategory = anim.get(category)
+            if not valCategory:
+                continue
+            else:
+                finalDisplay = " ".join([finalDisplay, "|", category, " : "])
+                for val in valCategory:
+                    finalDisplay = " ".join([finalDisplay,val,"|"])
+        print(finalDisplay)
+        finalDisplay = ""
+    print("#####################")
+    print("\n")
+
 #Find a question to ask to reduce possible animals
 def askQuestion(classAnimal, tabPossibilities, lv):
     if(random.randint(0,1)) :
         delay_print(beforeAsking[lv][random.randint(0,4)]+"\n")
     animalToTest, category, criteriaToAsk = findCriteriaToAsk(classAnimal, tabPossibilities)
-    delay_print("So is your animal... " + criteriaToAsk +"?"+"\n")
+    delay_print(" ".join(["So is your animal...",criteriaToAsk,"?\n"]))
     answer = input()
     if answerYesOrNo(answer) :
         update_list(tabPossibilities,category,criteriaToAsk,1)
@@ -116,7 +171,7 @@ def askQuestion(classAnimal, tabPossibilities, lv):
     return 0
 #Find a criteria that was not already asked and present in our possibilities
 def findCriteriaToAsk(classAnimal, tabPossibilities):
-    while(1):
+    while(1): #Take a random animal in possibilities
         animalToTest = random.choice(list(tabPossibilities.keys()))
         dataAnimal = tabPossibilities.get(animalToTest)
         for category in dataAnimal:
@@ -168,15 +223,16 @@ def modeAnswering() :
     #     else :
     #         delay_print("Not yet ? Come on, the crowd is on fire, find us an animal !\n")
     # delay_print("I will ask you a few questions, do not hesitate to tell me if you do not know or if you are not sure of the answer !\n")
-    tabPossibilities = animals
-    classAnimal = firstFilter(tabPossibilities)
-    tabPossibilities = tabPossibilities.get(classAnimal)
-    lvSmalltalk = 0
-    while(len(tabPossibilities)>1) :
-        askQuestion(classAnimal,tabPossibilities,lvSmalltalk)
-    if(len(tabPossibilities) == 1):
-        lastAnimal, value = tabPossibilities.popitem()
-        delay_print("I would say that your animal is... "+lastAnimal)
+    # tabPossibilities = animals
+    # classAnimal = firstFilter(tabPossibilities)
+    # tabPossibilities = tabPossibilities.get(classAnimal)
+    # lvSmalltalk = 0
+    # while(len(tabPossibilities)>1) :
+    #     askQuestion(classAnimal,tabPossibilities,lvSmalltalk)
+    # if(len(tabPossibilities) == 1):
+    #     lastAnimal, value = tabPossibilities.popitem()
+    #     delay_print("I would say that your animal is... "+lastAnimal)
+    displayListAnimals()
 
 
 def modeGuessing() :
