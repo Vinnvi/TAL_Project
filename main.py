@@ -52,11 +52,15 @@ def mode2():
 		else :
 			print(MyAnswer[0])
 
+def mode3():
+	from modeAnimal import modeAnimal
+	modeAnimal()
+
 def answer2(myInput,n) :
 	mots = myInput.lower().split()
 
 	for t in mots :
-		for m in sante: 
+		for m in sante:
 			if t == m :
 				answer1 = chooseAnswer("sante",n)
 				return answer1
@@ -82,7 +86,7 @@ def answer2(myInput,n) :
 
 
 def chooseAnswer(category,n):
-	
+
 	nombreDeBase = random.randint(0,1)
 	while n == nombreDeBase:
 		nombreDeBase = random.randint(0,1)
@@ -101,9 +105,6 @@ def chooseAnswer(category,n):
 	a = [l,nombreDeBase]
 	return a
 
-def mode3():
-	1
-
 
 
 if __name__ == "__main__":
@@ -118,6 +119,5 @@ if __name__ == "__main__":
 		mode1()
 	elif args.mode==2 :
 		mode2()
-	else :
+	elif args.mode==3 :
 		mode3()
-
