@@ -3,12 +3,14 @@ import re
 import random
 import time
 import sys
+import databaseAnimals
 
 answerRight = 0
 name = ""
+explanations = "This game is really simple, the main objective is for one of the participant to guess the animal that the other has in mind, according to which mode you are playing, you or us will ask the questions.\nMODE 1 - mettre la suite..."
 #------------- GUESSING -------------
 colors = ["blue", "black", "brown", "gold", "green", "orange", "pink", "purple", "red", "silver", "white", "yellow"]
-classes = ["mammal","bird","fish","reptile", "amphibian","insect"]
+classes = ["mammal","bird","fish","reptile","amphibian","insect"]
 preys = ["mice", "flies", "fish"]
 location = ["south america", "africa", "Europe", "asia", "australia", "north america"]
 status = ["endangered", "safe", "least concern"]
@@ -16,30 +18,9 @@ dataGuessing = {
 'bird' : {'colors':[], 'size':[], 'keyword':[]},
 'fish' : {'colors':[], 'size':[], 'habitat':[]},
 'insect' : {'colors':[], 'size':[], 'members':[]},
-'mammal' : {'colors':[], 'species':[], 'size':[], 'surrounding':[]}
+'mammal' : {'colors':[], 'species':[], 'size':[], 'behaviour':[], 'keyword':[],'dietary':[]}
 }
 dataAnswers = []
-animals = {
-'bird' : {
-'crow': {'colors':["black"], 'size':["small"],'keyword':[]},
-'eagle': {'colors':["black"], 'size':["medium"],'keyword':["sigil of america"]},
-'falcon': {'colors':["black"], 'size':["big"], 'keyword':[]}
-},
-'fish' : {
-'salmon': {'colors':[], 'size':["small"], 'habitat':["watefall","rivers"]}
-},
-'insect' : {
-'spider': {'colors':[], 'size':["small"], 'members':["8 members"]},
-'ant': {'colors':[], 'size':["small"], 'members':["6 members"]},
-'butterfly': {'colors':[], 'size':["small"], 'members':["wings"]}
-},
-'mammal' : {
-'lion': {'colors':["yellow", "brown"], 'species':["mammal"], 'size':["medium"],'surrounding':["group"]},
-'panda': {'colors':["black and white"], 'species':["mammal"], 'size':["medium"], 'surrounding':[]},
-'tiger': {'colors':["yellow", "brown","black","white"], 'species':["mammal"], 'size':["medium"], 'surrounding':[]},
-'zebra': {'colors':["black and white"], 'species':["mammal"], 'size':["medium"],'surrounding':["group"]}
-}
-}
 #------------- READING -------------
 yes = ["yes","why not","i agree","up for it","like", "suppose", "correct", "case", "indeed", "could be", "that's it", "it is"]
 no = ["no","not sure","decline","not up for it"]
@@ -138,9 +119,9 @@ def displayAnimal(classAnimal):
     print("#####################")
     print("This is the category ", classAnimal.upper()," :")
     finalDisplay = ""
-    for animal in animals.get(classAnimal):
+    for animal in databaseAnimals.animals.get(classAnimal):
         finalDisplay = " ".join([finalDisplay, animal.upper()," - "])
-        anim = animals.get(classAnimal).get(animal)
+        anim = databaseAnimals.animals.get(classAnimal).get(animal)
         for category in anim:
             valCategory = anim.get(category)
             if not valCategory:
@@ -183,21 +164,21 @@ def findCriteriaToAsk(classAnimal, tabPossibilities):
 
 def modeAnimal():
     global answerRight, name
-    # delay_print("Hello and welcome blabla\n")
-    # delay_print("Here come our first challenger, do not make the crowd waiting, give us a name\n")
-    # answer = input()
-    # name = answer
-    # updateDataWithName(name)
-    # nb = random.randint(0,1)
-    # delay_print(answerName[nb]+"\n")
-    # delay_print("I suppose you are already acquainted with the rules ? \n")
-    # answer = input()
-    # choice = answerYesOrNo(answer)
-    # if(choice):
-    #     delay_print("Perfect, we have a profesional here.\n")
-    # else :
-    #     delay_print("I suppose it is time for explanations then.\n")
-    # delay_print("Then now, choose the game you are going to participate. Before you  are two interrupters, press 1 if you have an animal in mind or 2 if you want to guess ours.\n")
+    delay_print("Hello and welcome blabla\n")
+    delay_print("Here come our first challenger, do not make the crowd waiting, give us a name\n")
+    answer = input()
+    name = answer
+    updateDataWithName(name)
+    nb = random.randint(0,1)
+    delay_print(answerName[nb]+"\n")
+    delay_print("I suppose you are already acquainted with the rules ? \n")
+    answer = input()
+    choice = answerYesOrNo(answer)
+    if(choice):
+        delay_print("Perfect, we have a profesional here.\n")
+    else :
+        delay_print("I suppose it is time for explanations then.\n")
+    delay_print("Then now, choose the game you are going to participate. Before you  are two interrupters, press 1 if you have an animal in mind or 2 if you want to guess ours.\n")
     answerRight = 0
     while answerRight == 0 :
         answer = input()
@@ -211,27 +192,27 @@ def modeAnimal():
             delay_print("Do you not know how to press a button ? Do it, 1 or 2\n")
 
 def modeAnswering() :
-    # global answerRight
-    # answerRight = 0
-    # delay_print("Answering huh? Then do you already have an animal in mind?\n")
-    # while answerRight == 0 :
-    #     answer = input()
-    #     choice = answerYesOrNo(answer)
-    #     if(choice) :
-    #         answerRight = 1
-    #         delay_print("Well then, ladies and gentlemen, the game can begin !\n")
-    #     else :
-    #         delay_print("Not yet ? Come on, the crowd is on fire, find us an animal !\n")
-    # delay_print("I will ask you a few questions, do not hesitate to tell me if you do not know or if you are not sure of the answer !\n")
-    # tabPossibilities = animals
-    # classAnimal = firstFilter(tabPossibilities)
-    # tabPossibilities = tabPossibilities.get(classAnimal)
-    # lvSmalltalk = 0
-    # while(len(tabPossibilities)>1) :
-    #     askQuestion(classAnimal,tabPossibilities,lvSmalltalk)
-    # if(len(tabPossibilities) == 1):
-    #     lastAnimal, value = tabPossibilities.popitem()
-    #     delay_print("I would say that your animal is... "+lastAnimal)
+    global answerRight
+    answerRight = 0
+    delay_print("Answering huh? Then do you already have an animal in mind?\n")
+    while answerRight == 0 :
+        answer = input()
+        choice = answerYesOrNo(answer)
+        if(choice) :
+            answerRight = 1
+            delay_print("Well then, ladies and gentlemen, the game can begin !\n")
+        else :
+            delay_print("Not yet ? Come on, the crowd is on fire, find us an animal !\n")
+    delay_print("I will ask you a few questions, do not hesitate to tell me if you do not know or if you are not sure of the answer !\n")
+    tabPossibilities = databaseAnimals.animals
+    classAnimal = firstFilter(tabPossibilities)
+    tabPossibilities = tabPossibilities.get(classAnimal)
+    lvSmalltalk = 0
+    while(len(tabPossibilities)>1) :
+        askQuestion(classAnimal,tabPossibilities,lvSmalltalk)
+    if(len(tabPossibilities) == 1):
+        lastAnimal, value = tabPossibilities.popitem()
+        delay_print(" ".join(["I would say that your animal is... "+lastAnimal+"\n"]))
     displayListAnimals()
 
 
