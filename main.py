@@ -2,6 +2,7 @@
 import re
 import random
 
+
 sante = ["health","cancer","disease","pneumonia","pain","head","stomach","belly","tired","suffering","suffer","hiv","aids"]
 famille = ["parents","son","daughter","kids","children","father","dad","daddy","mother","mom","mum","mommy","sister","brother","grandparents","granny","grannies","grandfather","grandmother","cousin","family","wife","husband","uncle","aunt"]
 pays = ["country","world","france","germany","england","spain","europe","brazil","asia","canada","usa","russia","italy"]
@@ -59,39 +60,64 @@ def mode3():
 	modeAnimal()
 
 def answer2(myInput,n) :
+
 	mots = myInput.lower().split()
-	end = ""
-	i = 0
-	if mots[0] == "i" :
-		if mots[1] == "was" :
-			for t in mots :
-				if i != 0 and i != 1 :
-					end = end + " " + t
-				i = i+1
-			print("Why were you"+end+" ?")
-			return "",0
-		if mots[1] == "will" and mots[2] == "be" :
-			for t in mots :
-				if i != 0 and i != 1 and i != 2 :
-					end = end + " " + t
-			i = i+1
-			print("Why you wil be"+end+" ?")
-			return "",0
-		if mots[1] == "am" :
-			for t in mots :
-				if i != 0 and i != 1 :
-					end = end + " " + t
-				i = i+1
-			print("Why are you"+end+" ?")
-			return "",0
-	elif mots[0] == "i'm" :
-		for t in mots :
-			if i != 0 :
-				end = end + " " + t
-			i = i+1
+	#I'm X part
+	im = return_indice(mots,"i'm")
+	if len(im) > 0 :
+		end = ""
+		indice_courant = 0
+		for w in mots :
+			if indice_courant > im[0]:
+				end = end+" "+w
+			indice_courant = indice_courant+1
 		print("Why are you"+end+" ?")
-		return "",0
-	for t in mots : 
+	else:
+		i = return_indice(mots,"i")
+		if len(i) > 0 :
+			am = return_indice(mots,"am")
+			was = return_indice(mots,"was")
+			will = return_indice(mots,"will")
+			if len(am)>0 :
+				for amP in am :
+					if amP - i[0] == 1:
+						end = ""
+						indice_courant = 0
+						for w in mots :
+							if indice_courant > amP:
+								end = end+" "+w
+							indice_courant = indice_courant+1
+						print("Why are you"+end+" ?")
+						return "",0
+			elif len(was)>0 :
+				for wasP in was :
+					if wasP - i[0] == 1:
+						end = ""
+						indice_courant = 0
+						for w in mots :
+							if indice_courant > wasP :
+								end = end+" "+w
+							indice_courant = indice_courant+1
+						print("Why were you"+end+" ?")
+						return "",0
+			elif len(will)>0:
+				for willP in will :
+					if willP - i[0] == 1:
+						be = return_indice(mots,"be")
+						for beP in be :
+							if beP - willP == 1:
+								end = ""
+								indice_courant = 0
+								for w in mots :
+									if indice_courant > beP :
+										end = end+" "+w
+									indice_courant = indice_courant+1
+								print("Why you will be"+end+" ?")
+								return "",0
+
+	#End I'm X part
+
+	for t in mots :
 			for m in sante:
 				if t == m :
 					answer1 = chooseAnswer("sante",n)
@@ -136,6 +162,16 @@ def chooseAnswer(category,n):
 
 	a = [l,nombreDeBase]
 	return a
+
+#return index(es) of an element in list
+def return_indice(tab,word):
+	i = 0
+	return_tab = []
+	for w in tab :
+		if w == word :
+			return_tab.append(i)
+		i = i+1
+	return return_tab
 
 
 
