@@ -25,21 +25,29 @@ animals = {
 'habitat':["waterfall","river"]}
 },
 'insect' : { ### CLASS INSECT ###
-'spider': {'colors':[], 'size':["small"], 'members':["8 members"]},
-'ant': {'colors':[], 'size':["small"], 'members':["6 members"]},
-'butterfly': {'colors':[], 'size':["small"], 'members':["wings"]}
+
+'ant': {'colors':[], 'size':["small"], 'limbs':["6 limbs"], 'wings':["no wings"]},
+'bee': {'colors':[], 'size':["small"], 'limbs':["6 limbs"], 'wings':["wings"]},
+'flea': {'colors':[], 'size':[], 'limbs':[], 'wings':["no wings"]},
+'bumblebee': {'colors':[], 'size':[], 'limbs':[], 'wings':["wings"]},
+'butterfly': {'colors':[], 'size':["small"], 'limbs':["0"], 'wings':["wings"]},
+'cicadas': {'colors':[], 'size':[], 'limbs':[], 'wings':["wings"]},
+'cricket': {'colors':[], 'size':[], 'limbs':[], 'wings':["wings"]},
+'dragonfly': {'colors':[], 'size':[], 'limbs':[], 'wings':["wings"]},
+'flea': {'colors':[], 'size':[], 'limbs':[], 'wings':["no wings"]},
+'fly': {'colors':[], 'size':["small"], 'limbs':[], 'wings':["wings"]},
+'grasshooper': {'colors':[], 'size':["small"], 'limbs':[], 'wings':["wings"]},
+'ladybird': {'colors':[], 'size':[], 'limbs':[], 'wings':["wings"]},
+'mantis': {'colors':[], 'size':[], 'limbs':[], 'wings':["no wings"]},
+'mosquito': {'colors':[], 'size':["small"], 'limbs':["6 limbs"], 'wings':["wings"]},
+'spider': {'colors':[], 'size':["small"], 'limbs':["8 limbs"], 'wings':["no wings"]},
+'termite': {'colors':[], 'size':[], 'limbs':["6 limbs"], 'wings':["no wings"]},
+'worm': {'colors':[], 'size':[], 'limbs':["no limbs"], 'wings':["no wings"]}
 },
 
 'mammal' : { ### CLASS MAMMAL ###
 
-'bear': {
-'colors':[],
-'species':["mammal"],
-'size':["big"],
-'behaviour':["bear"],
-'dietary':["carnivorous"],
-'epiderm':["fur"],
-'keyword':[]},
+'bear': {'colors':[], 'species':["mammal"], 'size':["big"], 'behaviour':["bear"], 'dietary':["carnivorous"], 'epiderm':["fur"], 'keyword':[]},
 
 'fox': {
 'colors':[],
