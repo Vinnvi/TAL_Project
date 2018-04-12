@@ -17,7 +17,7 @@ status = ["endangered", "safe", "least concern"]
 dataGuessing = {
 'bird' : {'colors':[], 'size':[], 'keyword':[]},
 'fish' : {'colors':[], 'size':[], 'habitat':[]},
-'insect' : {'colors':[], 'size':[], 'members':[]},
+'insect' : {'colors':[], 'size':[], 'limbs':[], 'wings':[]},
 'mammal' : {'colors':[], 'species':[], 'size':[], 'behaviour':[], 'keyword':[],'dietary':[]}
 }
 dataAnswers = []
@@ -83,6 +83,15 @@ def firstFilter(tabPossibilities):
             return valClass
     return ""
 
+#The bot chooses a random animal for the game
+#return the class and the animal
+def chooseRandomAnimal():
+    randomClass = random.choice(list(databaseAnimals.animals.keys()))
+    randomAnimal = random.choice(list(databaseAnimals.animals.get(randomClass).keys()))
+    return randomClass, randomAnimal
+
+#Check which class of animal was asked in the myInput
+#return the class or None
 def answerClassAnimal():
     numberKeyWords = 0
     while numberKeyWords == 0:
@@ -109,12 +118,13 @@ def answerClassAnimal():
         else:
             delay_print("I'm not sure to understand which class you want...")
             return None
+#Display the list of animals in database for one class after asking which class
 def displayListAnimals():
     delay_print("So tell me, which class of animal are you interested in, birds, insects, mamals of fishs?")
     classAnimal = answerClassAnimal()
     if classAnimal:
         displayAnimal(classAnimal)
-
+#Display the list of animals in database for one class
 def displayAnimal(classAnimal):
     print("#####################")
     print("This is the category ", classAnimal.upper()," :")
@@ -161,7 +171,7 @@ def findCriteriaToAsk(classAnimal, tabPossibilities):
                     return animalToTest, category, val
     return "","",""
 
-
+#Main program
 def modeAnimal():
     global answerRight, name
     delay_print("Hello and welcome blabla\n")
@@ -191,6 +201,7 @@ def modeAnimal():
         else :
             delay_print("Do you not know how to press a button ? Do it, 1 or 2\n")
 
+#The bot tries to guess the animal that the player has in mind
 def modeAnswering() :
     global answerRight
     answerRight = 0
@@ -215,10 +226,15 @@ def modeAnswering() :
         delay_print(" ".join(["I would say that your animal is... "+lastAnimal+"\n"]))
     displayListAnimals()
 
-
+#The player tries to guess the animal that the bot has in mind
 def modeGuessing() :
+    delay_print("Guessing huh? Well, me and the crowd already have an animal in mind, the game can now begin ! Come on ! Ask !\n")
+    classAnimal, animalToGuess = chooseRandomAnimal()
+    print(classAnimal)
+    print(animalToGuess)
     return 0
 
+#Return a boolean whether or not the answer was positive
 def answerYesOrNo(myInput) :
 	mots = myInput.lower().split()
 	numberYes = 0

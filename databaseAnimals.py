@@ -25,7 +25,6 @@ animals = {
 'habitat':["waterfall","river"]}
 },
 'insect' : { ### CLASS INSECT ###
-
 'ant': {'colors':[], 'size':["small"], 'limbs':["6 limbs"], 'wings':["no wings"]},
 'bee': {'colors':[], 'size':["small"], 'limbs':["6 limbs"], 'wings':["wings"]},
 'flea': {'colors':[], 'size':[], 'limbs':[], 'wings':["no wings"]},
