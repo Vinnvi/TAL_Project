@@ -17,7 +17,7 @@ status = ["endangered", "safe", "least concern"]
 dataGuessing = {
 'bird' : {'colors':[], 'size':[], 'keyword':[]},
 'fish' : {'colors':[], 'size':[], 'habitat':[]},
-'insect' : {'colors':[], 'size':[], 'members':[]},
+'insect' : {'colors':[], 'size':[], 'limbs':[], 'wings':[]},
 'mammal' : {'colors':[], 'species':[], 'size':[], 'behaviour':[], 'keyword':[],'dietary':[]}
 }
 dataAnswers = []
@@ -174,20 +174,20 @@ def findCriteriaToAsk(classAnimal, tabPossibilities):
 #Main program
 def modeAnimal():
     global answerRight, name
-    # delay_print("Hello and welcome blabla\n")
-    # delay_print("Here come our first challenger, do not make the crowd waiting, give us a name\n")
-    # answer = input()
-    # name = answer
-    # updateDataWithName(name)
-    # nb = random.randint(0,1)
-    # delay_print(answerName[nb]+"\n")
-    # delay_print("I suppose you are already acquainted with the rules ? \n")
-    # answer = input()
-    # choice = answerYesOrNo(answer)
-    # if(choice):
-    #     delay_print("Perfect, we have a profesional here.\n")
-    # else :
-    #     delay_print("I suppose it is time for explanations then.\n")
+    delay_print("Hello and welcome blabla\n")
+    delay_print("Here come our first challenger, do not make the crowd waiting, give us a name\n")
+    answer = input()
+    name = answer
+    updateDataWithName(name)
+    nb = random.randint(0,1)
+    delay_print(answerName[nb]+"\n")
+    delay_print("I suppose you are already acquainted with the rules ? \n")
+    answer = input()
+    choice = answerYesOrNo(answer)
+    if(choice):
+        delay_print("Perfect, we have a profesional here.\n")
+    else :
+        delay_print("I suppose it is time for explanations then.\n")
     delay_print("Then now, choose the game you are going to participate. Before you  are two interrupters, press 1 if you have an animal in mind or 2 if you want to guess ours.\n")
     answerRight = 0
     while answerRight == 0 :

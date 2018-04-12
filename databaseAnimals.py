@@ -25,21 +25,26 @@ animals = {
 'habitat':["waterfall","river"]}
 },
 'insect' : { ### CLASS INSECT ###
-'spider': {'colors':[], 'size':["small"], 'members':["8 members"]},
-'ant': {'colors':[], 'size':["small"], 'members':["6 members"]},
-'butterfly': {'colors':[], 'size':["small"], 'members':["wings"]}
+
+'ant': {'colors':[], 'size':["small"], 'members':["6 members"], 'wings':["no wings"]},
+'bee': {'colors':[], 'size':["small"], 'members':[], 'wings':["wings"]},
+'butterfly': {'colors':[], 'size':["small"], 'members':["0"], 'wings':["wings"]},
+'cicadas': {'colors':[], 'size':[], 'members':[], 'wings':[]},
+'cricket': {'colors':[], 'size':[], 'members':[], 'wings':[]},
+'dragonfly': {'colors':[], 'size':[], 'members':[], 'wings':[]},
+'flea': {'colors':[], 'size':[], 'members':[], 'wings':[]},
+'fly': {'colors':[], 'size':["small"], 'members':[], 'wings':["wings"]},
+'grasshooper': {'colors':[], 'size':["small"], 'members':[], 'wings':["wings"]},
+'ladybird': {'colors':[], 'size':[], 'members':[], 'wings':[]},
+'mantis': {'colors':[], 'size':[], 'members':[], 'wings':[]},
+'mosquito': {'colors':[], 'size':["small"], 'members':["8 members"], 'wings':["wings"]},
+'spider': {'colors':[], 'size':["small"], 'members':["8 members"], 'wings':["no wings"]},
+'termite': {'colors':[], 'size':[], 'members':[], 'wings':[]}
 },
 
 'mammal' : { ### CLASS MAMMAL ###
 
-'bear': {
-'colors':[],
-'species':["mammal"],
-'size':["big"],
-'behaviour':["bear"],
-'dietary':["carnivorous"],
-'epiderm':["fur"],
-'keyword':[]},
+'bear': {'colors':[], 'species':["mammal"], 'size':["big"], 'behaviour':["bear"], 'dietary':["carnivorous"], 'epiderm':["fur"], 'keyword':[]},
 
 'fox': {
 'colors':[],
