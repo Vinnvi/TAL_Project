@@ -25,79 +25,84 @@ animals = {
 'habitat':["waterfall","river"]}
 },
 'insect' : { ### CLASS INSECT ###
+'ant': {'colors':[], 'size':["small"],'movement':["walking"], 'limbs':["6 limbs"], 'wings':["no wings"], 'keyword':[]},
 
-'ant': {'colors':[], 'size':["small"], 'members':["6 members"], 'wings':["no wings"]},
-'bee': {'colors':[], 'size':["small"], 'members':[], 'wings':["wings"]},
-'butterfly': {'colors':[], 'size':["small"], 'members':["0"], 'wings':["wings"]},
-'cicadas': {'colors':[], 'size':[], 'members':[], 'wings':[]},
-'cricket': {'colors':[], 'size':[], 'members':[], 'wings':[]},
-'dragonfly': {'colors':[], 'size':[], 'members':[], 'wings':[]},
-'flea': {'colors':[], 'size':[], 'members':[], 'wings':[]},
-'fly': {'colors':[], 'size':["small"], 'members':[], 'wings':["wings"]},
-'grasshooper': {'colors':[], 'size':["small"], 'members':[], 'wings':["wings"]},
-'ladybird': {'colors':[], 'size':[], 'members':[], 'wings':[]},
-'mantis': {'colors':[], 'size':[], 'members':[], 'wings':[]},
-'mosquito': {'colors':[], 'size':["small"], 'members':["8 members"], 'wings':["wings"]},
-'spider': {'colors':[], 'size':["small"], 'members':["8 members"], 'wings':["no wings"]},
-'termite': {'colors':[], 'size':[], 'members':[], 'wings':[]}
+'bee': {'colors':[], 'size':["small"], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':["honey"]},
+
+'bumblebee': {'colors':[], 'size':[], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
+
+'butterfly': {'colors':[], 'movement':["flying"], 'size':["small"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
+
+'cicadas': {'colors':[], 'size':[], 'movement':["walking"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
+
+'cricket': {'colors':[], 'size':[], 'movement':["jumping"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
+
+'dragonfly': {'colors':[], 'size':[], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
+
+'flea': {'colors':[], 'size':[], 'movement':["jumping"], 'limbs':["6 limbs"], 'wings':["no wings"], 'keyword':[]},
+
+'fly': {'colors':[], 'size':["small"], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
+
+'grasshooper': {'colors':[], 'size':["small"], 'movement':["jumping"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
+
+'ladybird': {'colors':[], 'size':[], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
+
+'mantis': {'colors':[], 'size':[], 'movement':["walking"], 'limbs':["6 limbs"], 'wings':["no wings"], 'keyword':[]},
+
+'mosquito': {'colors':[], 'size':["small"], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
+
+'spider': {'colors':[], 'size':["small"], 'movement':["walking"], 'limbs':["8 limbs"], 'wings':["no wings"], 'keyword':[]},
+
+'termite': {'colors':[], 'size':[], 'movement':["walking"], 'limbs':["6 limbs"], 'wings':["no wings"], 'keyword':[]},
+
+'worm': {'colors':[], 'size':[], 'movement':["crawling"], 'limbs':["no limbs"], 'wings':["no wings"], 'keyword':[]}
 },
 
 'mammal' : { ### CLASS MAMMAL ###
 
-'bear': {'colors':[], 'species':["mammal"], 'size':["big"], 'behaviour':["bear"], 'dietary':["carnivorous"], 'epiderm':["fur"], 'keyword':[]},
+'bat': {'colors':["black"], 'location':["caves"], 'size':["small"], 'behaviour':["group"], 'dietary':["omnivorous"], 'epiderm':[], 'keyword':[]},
 
-'fox': {
-'colors':[],
-'species':["mammal"],
-'size':["small"],
-'behaviour':[],
-'dietary':["omnivorous"],
-'epiderm':["fur"],
-'keyword':[]},
+'bear': {'colors':["brown"], 'location':["forest", "moutain"], 'size':["large"], 'behaviour':["alone"], 'dietary':["carnivorous"], 'epiderm':["fur"], 'keyword':[]},
 
-'lion': {
-'colors':["yellow", "brown"],
-'species':["mammal"],
-'size':["medium"],
-'behaviour':["group"],
-'dietary':["carnivorous"],
-'epiderm':["fur"],
-'keyword':[]},
+'cat': {'colors':["many colors"], 'location':["cities"], 'size':["small"], 'behaviour':["alone"], 'dietary':["omnivorous"], 'epiderm':["fur"], 'keyword':[]},
 
-'panda': {
-'colors':["black and white"],
-'species':["mammal"],
-'size':["medium"],
-'behaviour':['alone'],
-'dietary':["herbivorous"],
-'epiderm':["fur"],
-'keyword':[]},
+'cow': {'colors':["many colors"], 'location':["grassland"], 'size':["large"], 'behaviour':["group"], 'dietary':["herbivorous"], 'epiderm':["skin"], 'keyword':[]},
 
-'rhinoceros': {
-'colors':[],
-'species':["mammal"],
-'size':["big"],
-'behaviour':["alone"],
-'dietary':["herbivorous"],
-'epiderm':["skin"],
-'keyword':["ivory"]},
+'deer': {'colors':["brown"], 'location':["forest"], 'size':["medium"], 'behaviour':["group"], 'dietary':["herbivorous"], 'epiderm':["fur"], 'keyword':[]},
 
-'tiger': {
-'colors':["yellow", "brown","black","white"],
-'species':["mammal"],
-'size':["medium"],
-'behaviour':["alone"],
-'dietary':["carnivorous"],
-'epiderm':["fur"],
-'keyword':[]},
+'dog': {'colors':["many colors"], 'location':["cities"], 'size':["small"], 'behaviour':["group"], 'dietary':["omnivorous"], 'epiderm':["fur"], 'keyword':[]},
 
-'zebra': {
-'colors':["black and white"],
-'species':["mammal"],
-'size':["medium"],
-'behaviour':["group"],
-'dietary':["herbivorous"],
-'epiderm':["fur"],
-'keyword':[]}
+'dolphin': {'colors':["blue", "grey"], 'location':["sea", "water"], 'size':["medium"], 'behaviour':["group"], 'dietary':["omnivorous"], 'epiderm':["skin"], 'keyword':[]},
+
+'elephant': {'colors':["grey"], 'location':["savannah"], 'size':["large"], 'behaviour':["group"], 'dietary':["herbivorous"], 'epiderm':["skin"], 'keyword':["ivory"]},
+
+'fox': {'colors':["orange", "red"], 'location':["forest"], 'size':["small"], 'behaviour':["alone"], 'dietary':["omnivorous"], 'epiderm':["fur"], 'keyword':[]},
+
+'koala': {'colors':["brown", "grey"], 'location':["forest"], 'size':["small"], 'behaviour':[], 'dietary':["herbivorous"], 'epiderm':["fur"], 'keyword':[]},
+
+'hippopotamus': {'colors':["grey"], 'location':["savannah", "water"], 'size':["large"], 'behaviour':["group"], 'dietary':["omnivorous"], 'epiderm':["skin"], 'keyword':[]},
+
+'horse': {'colors':["many colors"], 'location':["grassland"], 'size':["medium"], 'behaviour':["group"], 'dietary':["herbivorous"], 'epiderm':["fur"], 'keyword':[]},
+
+'kangaroo': {'colors':["brown"], 'location':["grassland","desert"], 'size':["medium"], 'behaviour':["group"], 'dietary':["herbivorous"], 'epiderm':["fur"], 'keyword':[]},
+
+'lion': {'colors':["yellow", "brown"], 'location':["savannah"], 'size':["medium"], 'behaviour':["group"], 'dietary':["carnivorous"], 'epiderm':["fur"], 'keyword':[]},
+
+'otter': {'colors':["brown"], 'location':["river", "water"], 'size':["small"], 'behaviour':["group"], 'dietary':["omnivorous"], 'epiderm':["fur"], 'keyword':[]},
+
+'panda': {'colors':["black and white"], 'location':["forest"], 'size':["medium"], 'behaviour':["alone","group"], 'dietary':["herbivorous"], 'epiderm':["fur"], 'keyword':[]},
+
+'rabbit': {'colors':["many colors"], 'location':["forest", "grassland"], 'size':["small"], 'behaviour':["alone"], 'dietary':["herbivorous"], 'epiderm':["fur"], 'keyword':[]},
+
+'raccoon': {'colors':["white","black","white"], 'location':["forest"], 'size':["small"], 'behaviour':["alone"], 'dietary':["omnivorous"], 'epiderm':["fur"], 'keyword':[]},
+
+'rhinoceros': {'colors':["grey"], 'location':["savannah"], 'size':["big"], 'behaviour':["alone","group"], 'dietary':["herbivorous"], 'epiderm':["skin"], 'keyword':["ivory"]},
+
+'tiger': {'colors':["yellow", "orange","black","white"], 'location':["forest","jungle"], 'size':["medium"],
+'behaviour':["alone"], 'dietary':["carnivorous"], 'epiderm':["fur"], 'keyword':[]},
+
+'whale': {'colors':["blue", "grey"], 'location':["sea", "water"], 'size':["very large"], 'behaviour':["group"], 'dietary':["omnivorous"], 'epiderm':["skin"], 'keyword':[]},
+
+'zebra': {'colors':["black and white"], 'location':["savannah"], 'size':["medium"], 'behaviour':["group"], 'dietary':["herbivorous"], 'epiderm':["fur"], 'keyword':[]}
 }
 }
