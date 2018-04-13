@@ -27,9 +27,9 @@ animals = {
 'salmon': {'colors':[], 'size':["small"], 'habitat':["watefall","rivers"]}
 },
 'insect' : {
-'spider': {'colors':[], 'size':["small"], 'members':["8 members"]},
+'spider': {'colors':[], 'size':["big"], 'members':["8 members"]},
 'ant': {'colors':[], 'size':["small"], 'members':["6 members"]},
-'butterfly': {'colors':[], 'size':["small"], 'members':["wings"]}
+'butterfly': {'colors':[], 'size':["medium"], 'members':["wings"]}
 },
 'mammal' : {
 'lion': {'colors':["yellow", "brown"], 'species':["mammal"], 'size':["medium"],'surrounding':["group"]},
@@ -38,18 +38,24 @@ animals = {
 'zebra': {'colors':["black and white"], 'species':["mammal"], 'size':["medium"],'surrounding':["group"]}
 }
 }
+
 #------------- READING -------------
-yes = ["yes","why not","i agree","up for it","like", "suppose", "correct", "case", "indeed", "could be"]
-no = ["no","not sure","decline","not up for it"]
-idk = ["idk","don't know","not sure","not really sure"]
+yesWords = ["y", "yes", "agree", "like", "correct", "case", "indeed", "be", "is", "course", "think", "suppose", "sure", "youp" ]
+noWords = ["no", "not", "neither", "without", "n", "nah", "nope", "wrong", "nop", "doubt", "mistake"]
+#doubtWords = ["think", "suppose", "sure",]   # means yes / means no when associated with a negative word
+#negativeDoubt = ["doubt", "mistake", ]          # means no / means yes when associated with a negative word
+
 #------------- CONVERSING -------------
-answerName = [" That's a weird name but why not, everyone, a row of applause for ",
+answerName = [" That's a weird name but why not, everyone, a round of applause for ",
 " ! The name of a champion ! "]
 queryClass = ["An easy question first. The class of your animal, tell me, is it ... ","No? Hum, What about ","My... what kind of animal is it... maybe ","Still not ! Then "]
 beforeAsking_Lv1 = ["So tell me ", "You look extremely confident ", "I would ask...", "What is in your head, Hummm", "I hope it is an easy one", "Hummmm", "Let me think about it a little"]
 beforeAsking_Lv2 = ["You are quite tricky, aren't you ", "I feel so close", "You are testing my patience ","Oh my, it doesn't look good", "I will take that smile out of your face "]
 beforeAsking_Lv3 = ["What goddamn animal is left ?", "Come on brain, work !"]
 beforeAsking = [beforeAsking_Lv1,beforeAsking_Lv2,beforeAsking_Lv3]
+
+#------------- MISCELLANEOUS -------------
+vowels = ["a","i","u","e","o"]
 
 def delay_print(s):
     for c in s:
@@ -86,7 +92,7 @@ def update_list(tabPossibilities, category, answer, bool):
     for wrongAnimal in animalToSupp :
         tabPossibilities.pop(wrongAnimal)
     if (not tabPossibilities):
-        print("List empty\n")
+        delay_print("I don't know any animal that matches your description...\n")
     return tabPossibilities #Reduced tab of possibilities
 
 def firstFilter(tabPossibilities):
@@ -111,8 +117,6 @@ def askQuestion(classAnimal, tabPossibilities, lv):
     else :
         update_list(tabPossibilities,category,criteriaToAsk,0)
     dataGuessing.get(classAnimal).get(category).append(criteriaToAsk)
-    print ("ici")
-    print (tabPossibilities)
     return 0
 #Find a criteria that was not already asked and present in our possibilities
 def findCriteriaToAsk(classAnimal, tabPossibilities):
@@ -144,7 +148,8 @@ def modeAnimal():
     #     delay_print("I suppose it is time for explanations then.\n")
     # delay_print("Then now, choose the game you are going to participate. Before you  are two interrupters, press 1 if you have an animal in mind or 2 if you want to guess ours.\n")
     answerRight = 0
-    while answerRight == 0 :
+    modeAnswering()
+    """while answerRight == 0 :
         answer = input()
         if(answer == "1") :
             answerRight = 1
@@ -153,7 +158,7 @@ def modeAnimal():
             answerRight = 1
             modeGuessing()
         else :
-            delay_print("Do you not know how to press a button ? Do it, 1 or 2\n")
+            delay_print("Do you not know how to press a button ? Do it, 1 or 2\n")"""
 
 def modeAnswering() :
     # global answerRight
@@ -176,28 +181,35 @@ def modeAnswering() :
         askQuestion(classAnimal,tabPossibilities,lvSmalltalk)
     if(len(tabPossibilities) == 1):
         lastAnimal, value = tabPossibilities.popitem()
-        delay_print("I would say that your animal is... "+lastAnimal)
-
+        space = " "
+        sentence = ("I would say that your animal is", "an" if lastAnimal[0] in vowels else "a",lastAnimal,"\n")
+        delay_print(space.join(sentence))
 
 def modeGuessing() :
     return 0
 
-def answerYesOrNo(myInput) :
-	mots = myInput.lower().split()
-	numberYes = 0
-	numberNo = 0
-	numberNot = 0
-	for t in mots :
-		if(t == "not") or (t == "don't") or (t == "aren't"):
-			numberNot += 1
-		else:
-			for m in yes :
-				if t == m :
-					numberYes += 1
-			for m in no :
-				if t == m :
-						numberNo += 1
-	if(numberYes - numberNot > numberNo):
-		return 1
-	else:
-		return 0
+# Retourne 0 si l'input est interprété comme une réponse positive
+# 1 si il est interprété comme une réponse négative
+def answerYesOrNo(myInput):
+    words = myInput.lower().split()
+    negative, positive = 0, 0,
+    question = False
+    for word in words:
+        if "n't" in word or word in noWords:
+            negative += 1
+        elif word in yesWords:
+            positive += 1
+        elif "?" in word:
+            question = True
+
+    if question:
+        delay_print("Hey, I'm the one asking questions here ! Answer my previous question first.\n") #TODO
+        answer = input()
+        return answerYesOrNo(answer)
+
+    if negative == 0 and positive == 0:
+        delay_print("I didn't quite understand your answer...\n") #TODO
+        answer = input()
+        return answerYesOrNo(answer)
+
+    return negative%2 == 0
