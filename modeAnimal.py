@@ -43,8 +43,8 @@ animals = {
 }
 
 #------------- READING -------------
-yesWords = ["y", "yes", "agree", "like", "correct", "case", "indeed", "be", "is", "course", "think", "suppose", "sure", "youp" ]
-noWords = ["no", "not", "neither", "without", "n", "nah", "nope", "wrong", "nop", "doubt", "mistake"]
+yesWords = ["y", "ye", "yeah", "yea", "yes", "agree", "like", "correct", "case", "indeed", "be", "is", "course", "think", "suppose", "sure", "yup", "am", "can", "do", "does", "yos", "affirmative", "ok", "okay"]
+noWords = ["no", "not", "neither", "without", "n", "nah", "nope", "wrong", "nop", "doubt", "mistake", "negative"]
 #doubtWords = ["think", "suppose", "sure",]   # means yes / means no when associated with a negative word
 #negativeDoubt = ["doubt", "mistake", ]          # means no / means yes when associated with a negative word
 
@@ -57,6 +57,8 @@ beforeAsking_Lv1 = ["So tell me ", "You look extremely confident ", "I would ask
 beforeAsking_Lv2 = ["You are quite tricky, aren't you ", "I feel so close", "You are testing my patience ","Oh my, it doesn't look good", "I will take that smile out of your face "]
 beforeAsking_Lv3 = ["What goddamn animal is left ?", "Come on brain, work !"]
 beforeAsking = [beforeAsking_Lv1,beforeAsking_Lv2,beforeAsking_Lv3]
+questionHandling = ["You should know answering a question with a question is quite impolite...", "Hey, I'm the one asking questions here !", "Answering with a question uh?", "You trickster, answering with a question is against the rules !"]
+openAnswerHandling = ["I didn't quite understand that...", "What did you mean there?", "Huh? What does it mean?", "I'm sorry I don't think I got that..."]
 
 #------------- MISCELLANEOUS -------------
 vowels = ["a","i","u","e","o"]
@@ -213,7 +215,7 @@ def modeAnimal():
         delay_print("Perfect, we have a profesional here.\n")
     else :
         delay_print("I suppose it is time for explanations then.\n")
-    delay_print("Then now, choose the game you are going to participate. Before you  are two interrupters, press 1 if you have an animal in mind or 2 if you want to guess ours.\n")
+    delay_print("Then now, choose the game you are going to participate. Before you are two interrupters, press 1 if you have an animal in mind or 2 if you want to guess ours.\n")
     answerRight = 0
     modeAnswering()
     """while answerRight == 0 :
@@ -268,22 +270,24 @@ def modeGuessing() :
 def answerYesOrNo(myInput):
     words = myInput.lower().split()
     negative, positive = 0, 0,
-    question = False
+    question = True if myInput[len(myInput)-1] == "?" else False
     for word in words:
         if "n't" in word or word in noWords:
             negative += 1
-        elif word in yesWords:
+        elif "'s" in word or word in yesWords:
             positive += 1
-        elif "?" in word:
-            question = True
+        """elif "?" in word:
+            question = True"""
 
     if question:
-        delay_print("Hey, I'm the one asking questions here ! Answer my previous question first.\n") #TODO
+        randomQuestionHandling = random.choice(questionHandling)
+        delay_print(randomQuestionHandling+" Answer my previous question first.\n") #TODO
         answer = input()
         return answerYesOrNo(answer)
 
     if negative == 0 and positive == 0:
-        delay_print("I didn't quite understand your answer...\n") #TODO
+        randomOpenAnswerHandling = random.choice(openAnswerHandling)
+        delay_print(randomOpenAnswerHandling+" Please give an affirmative or negative answer.") #TODO
         answer = input()
         return answerYesOrNo(answer)
 
