@@ -35,7 +35,7 @@ def decomposition_sentence(mots):
 			1
 		elif mots[0] in be_verbs_n :
 			1
-			
+
 		elif mots[0] in subject :
 			if mots[1] in be_verbs :
 				if mots[2] in action_verbs:
@@ -67,7 +67,16 @@ s_be_verbs = ["i'm","it's"]
 a = ["a","an","the"]
 negatve = ["not"]
 have_verbs = ["have","has","had"]
-action_verbs = [see["see","saw","seen","seeing","sees"],live["live","living","lives","lived"],fly["fly","flying","flies","flew","flown"],swim["swim","swimming","swam","swum","swims"],crawl["crawling","crawl","crawled","crawls"],eat["eat","eating","eats","ate","eaten"]]
+
+
+see = ["see","saw","seen","seeing","sees"]
+live = ["live","living","lives","lived"]
+fly = ["fly","flying","flies","flew","flown"]
+swim = ["swim","swimming","swam","swum","swims"]
+crawl = ["crawling","crawl","crawled","crawls"]
+eat = ["eat","eating","eats","ate","eaten"]
+
+action_verbs = [see,live,fly,swim,crawl,eat]
 t = ["ever","never","already"]
 location = ["grassland","city","water","savannah","forest","jungle","river","mountain","mountains","desert","antartic","sea","floe"]
 
