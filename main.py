@@ -1,7 +1,7 @@
 #-*- coding: Utf-8 -*-
 import re
 import random
-
+import mode3PSide
 
 sante = ["health","cancer","disease","pneumonia","pain","head","stomach","belly","tired","suffering","suffer","hiv","aids"]
 famille = ["parents","son","daughter","kids","children","father","dad","daddy","mother","mom","mum","mommy","sister","brother","grandparents","granny","grannies","grandfather","grandmother","cousin","family","wife","husband","uncle","aunt"]
@@ -172,6 +172,8 @@ def return_indice(tab,word):
 			return_tab.append(i)
 		i = i+1
 	return return_tab
+
+
 
 
 
