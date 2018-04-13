@@ -3,22 +3,25 @@ import re
 import random
 import time
 import sys
+import databaseAnimals
 
 answerRight = 0
 name = ""
+explanations = "This game is really simple, the main objective is for one of the participant to guess the animal that the other has in mind, according to which mode you are playing, you or us will ask the questions.\nMODE 1 - mettre la suite..."
 #------------- GUESSING -------------
 colors = ["blue", "black", "brown", "gold", "green", "orange", "pink", "purple", "red", "silver", "white", "yellow"]
-classes = ["mammal","bird","fish","reptile", "amphibian","insect"]
+classes = ["mammal","bird","fish","reptile","amphibian","insect"]
 preys = ["mice", "flies", "fish"]
 location = ["south america", "africa", "Europe", "asia", "australia", "north america"]
 status = ["endangered", "safe", "least concern"]
 dataGuessing = {
-'bird' : {'colors':[], 'size':[]},
+'bird' : {'colors':[], 'size':[], 'keyword':[]},
 'fish' : {'colors':[], 'size':[], 'habitat':[]},
-'insect' : {'colors':[], 'size':[], 'members':[]},
-'mammal' : {'colors':[], 'species':[], 'size':[], 'surrounding':[]}
+'insect' : {'colors':[], 'size':[], 'limbs':[], 'wings':[]},
+'mammal' : {'colors':[], 'species':[], 'size':[], 'behaviour':[], 'keyword':[],'dietary':[]}
 }
 dataAnswers = []
+
 animals = {
 'bird' : {
 'crow': {'colors':["black"], 'size':["small"]}
@@ -44,6 +47,7 @@ yesWords = ["y", "yes", "agree", "like", "correct", "case", "indeed", "be", "is"
 noWords = ["no", "not", "neither", "without", "n", "nah", "nope", "wrong", "nop", "doubt", "mistake"]
 #doubtWords = ["think", "suppose", "sure",]   # means yes / means no when associated with a negative word
 #negativeDoubt = ["doubt", "mistake", ]          # means no / means yes when associated with a negative word
+
 
 #------------- CONVERSING -------------
 answerName = [" That's a weird name but why not, everyone, a round of applause for ",
@@ -95,6 +99,7 @@ def update_list(tabPossibilities, category, answer, bool):
         delay_print("I don't know any animal that matches your description...\n")
     return tabPossibilities #Reduced tab of possibilities
 
+#first filter to define the class of the animal
 def firstFilter(tabPossibilities):
     nbQuery = 0
     for valClass in dataGuessing.keys():
@@ -105,12 +110,74 @@ def firstFilter(tabPossibilities):
             return valClass
     return ""
 
+#The bot chooses a random animal for the game
+#return the class and the animal
+def chooseRandomAnimal():
+    randomClass = random.choice(list(databaseAnimals.animals.keys()))
+    randomAnimal = random.choice(list(databaseAnimals.animals.get(randomClass).keys()))
+    return randomClass, randomAnimal
+
+#Check which class of animal was asked in the myInput
+#return the class or None
+def answerClassAnimal():
+    numberKeyWords = 0
+    while numberKeyWords == 0:
+        myInput = input()
+        mots = myInput.lower().split()
+        classAnimal = ""
+        for t in mots :
+            if(t == "bird"):
+                classAnimal = "bird"
+                numberKeyWords += 1
+            elif (t == "mammal"):
+                classAnimal = "mammal"
+                numberKeyWords += 1
+            elif (t == "fish"):
+                classAnimal = "fish"
+                numberKeyWords += 1
+            elif (t == "insect"):
+                classAnimal = "insect"
+                numberKeyWords += 1
+        if numberKeyWords == 0:
+            delay_print("What ? just give me a class to display, mammal, fish, insect or bird ?")
+        elif numberKeyWords == 1:
+            return classAnimal
+        else:
+            delay_print("I'm not sure to understand which class you want...")
+            return None
+#Display the list of animals in database for one class after asking which class
+def displayListAnimals():
+    delay_print("So tell me, which class of animal are you interested in, birds, insects, mamals of fishs?")
+    classAnimal = answerClassAnimal()
+    if classAnimal:
+        displayAnimal(classAnimal)
+#Display the list of animals in database for one class
+def displayAnimal(classAnimal):
+    print("#####################")
+    print("This is the category ", classAnimal.upper()," :")
+    finalDisplay = ""
+    for animal in databaseAnimals.animals.get(classAnimal):
+        finalDisplay = " ".join([finalDisplay, animal.upper()," - "])
+        anim = databaseAnimals.animals.get(classAnimal).get(animal)
+        for category in anim:
+            valCategory = anim.get(category)
+            if not valCategory:
+                continue
+            else:
+                finalDisplay = " ".join([finalDisplay, "|", category, " : "])
+                for val in valCategory:
+                    finalDisplay = " ".join([finalDisplay,val,"|"])
+        print(finalDisplay)
+        finalDisplay = ""
+    print("#####################")
+    print("\n")
+
 #Find a question to ask to reduce possible animals
 def askQuestion(classAnimal, tabPossibilities, lv):
     if(random.randint(0,1)) :
         delay_print(beforeAsking[lv][random.randint(0,4)]+"\n")
     animalToTest, category, criteriaToAsk = findCriteriaToAsk(classAnimal, tabPossibilities)
-    delay_print("So is your animal... " + criteriaToAsk +"?"+"\n")
+    delay_print(" ".join(["So is your animal...",criteriaToAsk,"?\n"]))
     answer = input()
     if answerYesOrNo(answer) :
         update_list(tabPossibilities,category,criteriaToAsk,1)
@@ -120,7 +187,7 @@ def askQuestion(classAnimal, tabPossibilities, lv):
     return 0
 #Find a criteria that was not already asked and present in our possibilities
 def findCriteriaToAsk(classAnimal, tabPossibilities):
-    while(1):
+    while(1): #Take a random animal in possibilities
         animalToTest = random.choice(list(tabPossibilities.keys()))
         dataAnimal = tabPossibilities.get(animalToTest)
         for category in dataAnimal:
@@ -129,24 +196,24 @@ def findCriteriaToAsk(classAnimal, tabPossibilities):
                     return animalToTest, category, val
     return "","",""
 
-
+#Main program
 def modeAnimal():
     global answerRight, name
-    # delay_print("Hello and welcome blabla\n")
-    # delay_print("Here come our first challenger, do not make the crowd waiting, give us a name\n")
-    # answer = input()
-    # name = answer
-    # updateDataWithName(name)
-    # nb = random.randint(0,1)
-    # delay_print(answerName[nb]+"\n")
-    # delay_print("I suppose you are already acquainted with the rules ? \n")
-    # answer = input()
-    # choice = answerYesOrNo(answer)
-    # if(choice):
-    #     delay_print("Perfect, we have a profesional here.\n")
-    # else :
-    #     delay_print("I suppose it is time for explanations then.\n")
-    # delay_print("Then now, choose the game you are going to participate. Before you  are two interrupters, press 1 if you have an animal in mind or 2 if you want to guess ours.\n")
+    delay_print("Hello and welcome blabla\n")
+    delay_print("Here come our first challenger, do not make the crowd waiting, give us a name\n")
+    answer = input()
+    name = answer
+    updateDataWithName(name)
+    nb = random.randint(0,1)
+    delay_print(answerName[nb]+"\n")
+    delay_print("I suppose you are already acquainted with the rules ? \n")
+    answer = input()
+    choice = answerYesOrNo(answer)
+    if(choice):
+        delay_print("Perfect, we have a profesional here.\n")
+    else :
+        delay_print("I suppose it is time for explanations then.\n")
+    delay_print("Then now, choose the game you are going to participate. Before you  are two interrupters, press 1 if you have an animal in mind or 2 if you want to guess ours.\n")
     answerRight = 0
     modeAnswering()
     """while answerRight == 0 :
@@ -160,20 +227,21 @@ def modeAnimal():
         else :
             delay_print("Do you not know how to press a button ? Do it, 1 or 2\n")"""
 
+#The bot tries to guess the animal that the player has in mind
 def modeAnswering() :
-    # global answerRight
-    # answerRight = 0
-    # delay_print("Answering huh? Then do you already have an animal in mind?\n")
-    # while answerRight == 0 :
-    #     answer = input()
-    #     choice = answerYesOrNo(answer)
-    #     if(choice) :
-    #         answerRight = 1
-    #         delay_print("Well then, ladies and gentlemen, the game can begin !\n")
-    #     else :
-    #         delay_print("Not yet ? Come on, the crowd is on fire, find us an animal !\n")
-    # delay_print("I will ask you a few questions, do not hesitate to tell me if you do not know or if you are not sure of the answer !\n")
-    tabPossibilities = animals
+    global answerRight
+    answerRight = 0
+    delay_print("Answering huh? Then do you already have an animal in mind?\n")
+    while answerRight == 0 :
+        answer = input()
+        choice = answerYesOrNo(answer)
+        if(choice) :
+            answerRight = 1
+            delay_print("Well then, ladies and gentlemen, the game can begin !\n")
+        else :
+            delay_print("Not yet ? Come on, the crowd is on fire, find us an animal !\n")
+    delay_print("I will ask you a few questions, do not hesitate to tell me if you do not know or if you are not sure of the answer !\n")
+    tabPossibilities = databaseAnimals.animals
     classAnimal = firstFilter(tabPossibilities)
     tabPossibilities = tabPossibilities.get(classAnimal)
     lvSmalltalk = 0
@@ -185,8 +253,15 @@ def modeAnswering() :
         sentence = ("I would say that your animal is", "an" if lastAnimal[0] in vowels else "a",lastAnimal,"\n")
         delay_print(space.join(sentence))
 
+
+#The player tries to guess the animal that the bot has in mind
 def modeGuessing() :
+    delay_print("Guessing huh? Well, me and the crowd already have an animal in mind, the game can now begin ! Come on ! Ask !\n")
+    classAnimal, animalToGuess = chooseRandomAnimal()
+    print(classAnimal)
+    print(animalToGuess)
     return 0
+
 
 # Retourne 0 si l'input est interprété comme une réponse positive
 # 1 si il est interprété comme une réponse négative
@@ -213,3 +288,4 @@ def answerYesOrNo(myInput):
         return answerYesOrNo(answer)
 
     return negative%2 == 0
+
