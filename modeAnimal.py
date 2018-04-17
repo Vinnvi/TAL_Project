@@ -9,7 +9,7 @@ answerRight = 0
 name = ""
 explanations = "This game is really simple, the main objective is for one of the participant to guess the animal that the other has in mind, according to which mode you are playing, you or us will ask the questions.\nMODE 1 - mettre la suite..."
 #------------- GUESSING -------------
-colors = ["blue", "black", "brown", "gold", "green", "orange", "pink", "purple", "red", "silver", "white", "yellow"]
+colors = ["blue", "black", "brown", "gold", "green", "orange", "pink", "purple", "red", "silver", "white", "yellow","grey"]
 classes = ["mammal","bird","fish","reptile","amphibian","insect"]
 preys = ["mice", "flies", "fish"]
 location = ["south america", "africa", "Europe", "asia", "australia", "north america"]
@@ -51,8 +51,8 @@ queriesCategory = {
 dataAnswers = []
 
 #------------- READING -------------
-yesWords = ["y", "yes", "agree", "like", "correct", "case", "indeed", "be", "is", "course", "think", "suppose", "sure", "youp" ]
-noWords = ["no", "not", "neither", "without", "n", "nah", "nope", "wrong", "nop", "doubt", "mistake"]
+yesWords = ["y", "ye", "yeah", "yea", "yes", "agree", "like", "correct", "case", "indeed", "be", "is", "course", "think", "suppose", "sure", "yup", "am", "can", "do", "does", "yos", "affirmative", "ok", "okay"]
+noWords = ["no", "not", "neither", "without", "n", "nah", "nope", "wrong", "nop", "doubt", "mistake", "negative"]
 #doubtWords = ["think", "suppose", "sure",]   # means yes / means no when associated with a negative word
 #negativeDoubt = ["doubt", "mistake", ]          # means no / means yes when associated with a negative word
 
@@ -65,6 +65,8 @@ beforeAsking_Lv1 = ["So tell me ", "You look extremely confident ", "I would ask
 beforeAsking_Lv2 = ["You are quite tricky, aren't you", "I feel so close", "You are testing my patience","Oh my, it doesn't look good", "I will take that smile out of your face","Ohlala","Me worried ? Not at all.","You're annoying","Think, just think"]
 beforeAsking_Lv3 = ["What goddamn animal is left ?", "Come on brain, work !", "Ohlala Ohlala Ohlala","Why ! What animal did you choose !","Is that a real animal at least?", "You are cheating, isn't it?","I don't like to play with you"]
 beforeAsking = [beforeAsking_Lv1,beforeAsking_Lv2,beforeAsking_Lv3]
+questionHandling = ["You should know answering a question with a question is quite impolite...", "Hey, I'm the one asking questions here !", "Answering with a question uh?", "You trickster, answering with a question is against the rules !"]
+openAnswerHandling = ["I didn't quite understand that...", "What did you mean there?", "Huh? What does it mean?", "I'm sorry I don't think I got that..."]
 
 #------------- MISCELLANEOUS -------------
 vowels = ["a","i","u","e","o"]
@@ -214,6 +216,7 @@ def findCriteriaToAsk(classAnimal, tabPossibilities):
 def modeAnimal():
     global answerRight, name
     delay_print("Hello and welcome blabla\n")
+
     # delay_print("Here come our first challenger, do not make the crowd waiting, give us a name\n")
     # answer = input()
     # name = answer
@@ -316,22 +319,24 @@ def modeGuessing() :
 def answerYesOrNo(myInput):
     words = myInput.lower().split()
     negative, positive = 0, 0,
-    question = False
+    question = True if myInput[len(myInput)-1] == "?" else False
     for word in words:
         if "n't" in word or word in noWords:
             negative += 1
-        elif word in yesWords:
+        elif "'s" in word or word in yesWords:
             positive += 1
-        elif "?" in word:
-            question = True
+        """elif "?" in word:
+            question = True"""
 
     if question:
-        delay_print("Hey, I'm the one asking questions here ! Answer my previous question first.\n") #TODO
+        randomQuestionHandling = random.choice(questionHandling)
+        delay_print(randomQuestionHandling+" Answer my previous question first.\n") #TODO
         answer = input()
         return answerYesOrNo(answer)
 
     if negative == 0 and positive == 0:
-        delay_print("I didn't quite understand your answer...\n") #TODO
+        randomOpenAnswerHandling = random.choice(openAnswerHandling)
+        delay_print(randomOpenAnswerHandling+" Please give an affirmative or negative answer.") #TODO
         answer = input()
         return answerYesOrNo(answer)
 
