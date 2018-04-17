@@ -9,7 +9,7 @@ answerRight = 0
 name = ""
 explanations = "This game is really simple, the main objective is for one of the participant to guess the animal that the other has in mind, according to which mode you are playing, you or us will ask the questions.\nMODE 1 - mettre la suite..."
 #------------- GUESSING -------------
-colors = ["blue", "black", "brown", "gold", "green", "orange", "pink", "purple", "red", "silver", "white", "yellow"]
+colors = ["blue", "black", "brown", "gold", "green", "orange", "pink", "purple", "red", "silver", "white", "yellow","grey"]
 classes = ["mammal","bird","fish","reptile","amphibian","insect"]
 preys = ["mice", "flies", "fish"]
 location = ["south america", "africa", "Europe", "asia", "australia", "north america"]

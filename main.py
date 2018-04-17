@@ -56,6 +56,9 @@ def mode2():
 			print(MyAnswer[0])
 
 def mode3():
+	from mode3PSide import mode3PSide
+	mode3PSide(1)
+
 	from modeAnimal import modeAnimal
 	modeAnimal()
 
