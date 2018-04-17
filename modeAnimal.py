@@ -17,54 +17,38 @@ status = ["endangered", "safe", "least concern"]
 dataGuessing = {
 'bird' : {'colors':[], 'size':[], 'keyword':[]},
 'fish' : {'colors':[], 'size':[], 'habitat':[]},
-'insect' : {'colors':[], 'size':[], 'movement':[], 'limbs':[], 'wings':[]},
+'insect' : {'colors':[], 'size':[], 'movement':[], 'limbs':[], 'wings':[], 'keyword':[]},
 'mammal' : {'colors':[], 'location':[], 'size':[], 'behaviour':[], 'dietary':[], 'epiderm':[], 'keyword':[]}
 }
 queriesCategory = {
 'bird' : {
 'colors':["Maybe the main colors of your animal would be ... ","Is your animal's color ... ", "I see something... I see an animal... ", "Oh but it is... "],
-'size':[],
-'keyword':[]},
+'size':["I think it's an animal...", "Is your animal...", "I see something ...", "I'm sure you took something..."],
+'keyword':["Is your animal related to ...","Am I close if I say ..."]},
+
 'fish' : {
 'colors':["Maybe the main colors of your animal would be ... ","Is your animal's color ... ", "I see something... I see an animal... ", "Oh but it is... "],
-'size':[],
-'habitat':[]},
+'size':["I think it's an animal...", "Is your animal...", "I see something ...", "I'm sure you took something..."],
+'habitat':["It lives in...","You can find it in..."]},
+
 'insect' : {
-'colors':["Maybe the main colors of your animal would be ... ","Is your animal's color ... ", "I see something... I see an animal... ", "Oh but it is... "],
-'size':[],
-'movement':[],
-'limbs':[],
-'wings':[]},
+'colors':["Maybe the main colors of your animal would be ...","Is your animal's color ...", "I see something... I see an animal...", "Oh but it is..."],
+'size':["I think it's an animal...", "Is your animal...", "I see something ...", "I'm sure you took something..."],
+'movement':["How does it moves, is it...","Is it..."],
+'limbs':["How many limbs?","Limbs..."],
+'wings':["It has...","An animal with..."],
+'keyword':["Is your animal related to ...","Am I close if I say ..."]},
+
 'mammal' : {
-'colors':["Maybe the main colors of your animal would be ... ","Is your animal's color ... ", "I see something... I see an animal... ", "Oh but it is... "],
-'location':["It lives... ","Does it lives... "],
-'size':["I think it's an animal ", "Is your animal... ", "I see something ... ", "I'm sure you took something... "],
-'behaviour':["Is it an animal who lives ", "What is his behavous, "],
-'dietary':["What does it eats, is it... ","Is it ... ","You took an animal ... ","Please, don't tell me it's ... ","Hum... I see, then is it ... "],
-'epiderm':["What is on him... ", "What can you say of his epiderm, does it have... "],
-'keyword':["Is your animal related to ... ","Am I close if I say ... "]}
+'colors':["Maybe the main colors of your animal would be ...","Is your animal's color ...", "I see something... I see an animal...", "Oh but it is..."],
+'location':["It lives...","Does it lives..."],
+'size':["I think it's an animal...", "Is your animal...", "I see something ...", "I'm sure you took something..."],
+'behaviour':["Is it an animal who lives", "What is his behavous,"],
+'dietary':["What does it eats, is it...","Is it ...","You took an animal ...","Please, don't tell me it's ...","Hum... I see, then is it ..."],
+'epiderm':["What is on him...", "What can you say of his epiderm, does it have..."],
+'keyword':["Is your animal related to ...","Am I close if I say ..."]}
 }
 dataAnswers = []
-
-animals = {
-'bird' : {
-'crow': {'colors':["black"], 'size':["small"]}
-},
-'fish' : {
-'salmon': {'colors':[], 'size':["small"], 'habitat':["watefall","rivers"]}
-},
-'insect' : {
-'spider': {'colors':[], 'size':["big"], 'members':["8 members"]},
-'ant': {'colors':[], 'size':["small"], 'members':["6 members"]},
-'butterfly': {'colors':[], 'size':["medium"], 'members':["wings"]}
-},
-'mammal' : {
-'lion': {'colors':["yellow", "brown"], 'species':["mammal"], 'size':["medium"],'surrounding':["group"]},
-'panda': {'colors':["black and white"], 'species':["mammal"], 'size':["medium"], 'surrounding':[]},
-'tiger': {'colors':["yellow", "brown","black","white"], 'species':["mammal"], 'size':["medium"], 'surrounding':[]},
-'zebra': {'colors':["black and white"], 'species':["mammal"], 'size':["medium"],'surrounding':["group"]}
-}
-}
 
 #------------- READING -------------
 yesWords = ["y", "yes", "agree", "like", "correct", "case", "indeed", "be", "is", "course", "think", "suppose", "sure", "youp" ]
@@ -77,9 +61,9 @@ noWords = ["no", "not", "neither", "without", "n", "nah", "nope", "wrong", "nop"
 answerName = [" That's a weird name but why not, everyone, a round of applause for ",
 " ! The name of a champion ! "]
 queryClass = ["An easy question first. The class of your animal, tell me, is it ... ","No? Hum, What about ","My... what kind of animal is it... maybe ","Still not ! Then "]
-beforeAsking_Lv1 = ["So tell me ", "You look extremely confident ", "I would ask...", "What is in your head, Hummm", "I hope it is an easy one", "Hummmm", "Let me think about it a little"]
-beforeAsking_Lv2 = ["You are quite tricky, aren't you ", "I feel so close", "You are testing my patience ","Oh my, it doesn't look good", "I will take that smile out of your face "]
-beforeAsking_Lv3 = ["What goddamn animal is left ?", "Come on brain, work !"]
+beforeAsking_Lv1 = ["So tell me ", "You look extremely confident ", "I would ask...", "What is in your head, Hummm", "I hope it is an easy one", "Hummmm", "Let me think about it a little","Give me a second","My question is...","I'm on fire baby"]
+beforeAsking_Lv2 = ["You are quite tricky, aren't you", "I feel so close", "You are testing my patience","Oh my, it doesn't look good", "I will take that smile out of your face","Ohlala","Me worried ? Not at all.","You're annoying","Think, just think"]
+beforeAsking_Lv3 = ["What goddamn animal is left ?", "Come on brain, work !", "Ohlala Ohlala Ohlala","Why ! What animal did you choose !","Is that a real animal at least?", "You are cheating, isn't it?","I don't like to play with you"]
 beforeAsking = [beforeAsking_Lv1,beforeAsking_Lv2,beforeAsking_Lv3]
 
 #------------- MISCELLANEOUS -------------
@@ -113,14 +97,15 @@ def update_list(tabPossibilities, category, answer, bool):
                 animalPossibility = 1
             elif bool == 0 and data != answer : #Shouldn't have the answer
                 animalPossibility = 1
+            elif bool == 1 and data != answer and category == "colors" :
+                if data == "many colors":
+                    animalPossibility = 1
         if not tabPossibilities.get(animal).get(category):
             animalPossibility = 1
         if animalPossibility == 0 :
             animalToSupp.append(animal) #We will remove it outside of the loop
     for wrongAnimal in animalToSupp :
         tabPossibilities.pop(wrongAnimal)
-    if (not tabPossibilities):
-        delay_print("I don't know any animal that matches your description...\n")
     return tabPossibilities #Reduced tab of possibilities
 
 #first filter to define the class of the animal
@@ -201,6 +186,8 @@ def askQuestion(classAnimal, tabPossibilities, lv):
     if(random.randint(0,1)) :
         delay_print(beforeAsking[lv][random.randint(0,4)]+"\n")
     animalToTest, category, criteriaToAsk = findCriteriaToAsk(classAnimal, tabPossibilities)
+    if animalToTest == "" :
+        return 0
     delay_print(" ".join( [random.choice(queriesCategory.get(classAnimal).get(category)),criteriaToAsk,"?\n"]))
     answer = input()
     if answerYesOrNo(answer) :
@@ -208,10 +195,13 @@ def askQuestion(classAnimal, tabPossibilities, lv):
     else :
         update_list(tabPossibilities,category,criteriaToAsk,0)
     dataGuessing.get(classAnimal).get(category).append(criteriaToAsk)
-    return 0
+    if len(tabPossibilities) > 1 :
+        return 1
+    else :
+        return 0
 #Find a criteria that was not already asked and present in our possibilities
 def findCriteriaToAsk(classAnimal, tabPossibilities):
-    while(1): #Take a random animal in possibilities
+    for i in range (0,50): #Take a random animal in possibilities
         animalToTest = random.choice(list(tabPossibilities.keys()))
         dataAnimal = tabPossibilities.get(animalToTest)
         for category in dataAnimal:
@@ -269,13 +259,47 @@ def modeAnswering() :
     classAnimal = firstFilter(tabPossibilities)
     tabPossibilities = tabPossibilities.get(classAnimal)
     lvSmalltalk = 0
-    while(len(tabPossibilities)>1) :
-        askQuestion(classAnimal,tabPossibilities,lvSmalltalk)
-    if(len(tabPossibilities) == 1):
+    numberQueries = 0
+    boolQueries = 1
+    while(boolQueries) :
+        boolQueries = askQuestion(classAnimal,tabPossibilities,lvSmalltalk)
+        numberQueries = numberQueries + 1
+        if(numberQueries/4 > lvSmalltalk+1) and (lvSmalltalk < 2):
+            lvSmalltalk = lvSmalltalk+1
+    if(len(tabPossibilities) == 1): #Only one animal left
         lastAnimal, value = tabPossibilities.popitem()
         space = " "
         sentence = ("I would say that your animal is", "an" if lastAnimal[0] in vowels else "a",lastAnimal,"\n")
         delay_print(space.join(sentence))
+        answerAnimal = input()
+        if(answerYesOrNo(answerAnimal)):
+            delay_print("Too easy.\n")
+        else:
+            delay_print("Oh my... I have no idea then.\n")
+    elif(len(tabPossibilities) > 1): #Many animals and no queries to ask
+        while (tabPossibilities):
+            lastAnimal, value = tabPossibilities.popitem()
+            space = " "
+            sentence = ("I would say that your animal is", "an" if lastAnimal[0] in vowels else "a",lastAnimal,"\n")
+            delay_print(space.join(sentence))
+            answerAnimal = input()
+            if(answerYesOrNo(answerAnimal)):
+                delay_print("Too easy.\n")
+                break
+            else:
+                delay_print("Whoooops\n")
+            if (not tabPossibilities):
+                 delay_print("I've got no idea... Did I make a mistake ? No. It must be you. False informations I'm sure, or maybe an animal not present in our database.\n")
+    elif (not tabPossibilities):#No animals left in possibilities
+        delay_print("I don't know any animal that matches your description... Are you sure that your informations are correct ? You should take a look at our database of animals\n")
+    delay_print("My, my, my, it is already the end of this session. Do you want to stop there ?\n")
+    answer = input()
+    if(answerYesOrNo(answer)):
+        delay_print(" ".join(["How sad, let us give a huge row of applause for", name,"!"]))
+    else:
+        delay_print("Great ! Let us start over then !\n")
+        modeAnswering()
+
 
 
 #The player tries to guess the animal that the bot has in mind
@@ -312,4 +336,3 @@ def answerYesOrNo(myInput):
         return answerYesOrNo(answer)
 
     return negative%2 == 0
-
