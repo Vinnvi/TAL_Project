@@ -3,25 +3,28 @@ import main
 import modeAnimal
 import databaseAnimals
 
-def mode3PSide(turnNumber):
+def mode3PSide():
 	print("Ask me a Y/N question about what animal guess, or tell me an animal name :")
-	myInput = input()
-	mots = myInput.lower().split()
 
 	#Generate animal to guess
 	classeToGuess,animalToGuess = modeAnimal.chooseRandomAnimal()
+	print(animalToGuess)
 
+	boucle(classeToGuess,animalToGuess)
+
+
+
+def boucle(classeToGuess,animalToGuess):
+	print(animalToGuess)
+	myInput = input()
+	mots = myInput.lower().split()
 	answer = decomposition_sentence(mots,classeToGuess,animalToGuess)
-
 	if answer == "ok":
 		print("You guess it!")
 	else :
 		print(answer)
-
-
-
-	turnNumber = turnNumber+1
-	mode3PSide(turnNumber)
+		boucle(classeToGuess,animalToGuess)
+	
 
 def decomposition_sentence(mots,classeToGuess,animalToGuess):
 
@@ -54,16 +57,23 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 						return "No, it is not "+mots[3]
 					else :
 
-						for animal in databaseAnimals.animals.keys() :
-							for an in databaseAnimals.animals.get(animal).keys() :
+						for classeA in list(databaseAnimals.animals.keys()) :
+							for an in list(databaseAnimals.animals.get(classeA).keys()) :
+								print(an)
 								if an == animalToGuess :
 									return "ok"
-								else :
-									#don't manage h case yet (unpredictible)
-									if mots[2][0] == "a" or mots[2][0] == "u" or mots[2][0] == "e" or mots[2][0] == "y" or mots[2][0] == "i" or mots[2][0] == "o":
-										return "No, it's not an "+mots[3]
-									else :
-										return "No it's not a "+mots[3]
+						#don't manage h case yet (unpredictible)
+						if mots[3][0] == "a" or mots[3][0] == "u" or mots[3][0] == "e" or mots[3][0] == "y" or mots[3][0] == "i" or mots[3][0] == "o":
+							return "No, it's not an "+mots[3]
+						else :
+							return "No it's not a "+mots[3]
+				if mots[2] in modeAnimal.colors :
+					myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
+					myColors = myAnimal.get("colors")
+					for c in myColors :
+						if mots[2] == c :
+							return "Yes, it is "+mots[2]
+					return "No, it is not "+mots[2]
 
 			elif mots[1] in be_verbs_n :
 				1

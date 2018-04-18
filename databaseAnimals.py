@@ -96,7 +96,7 @@ animals = {
 
 'rabbit': {'colors':["many colors"], 'location':["forest", "grassland"], 'size':["small"], 'behaviour':["alone"], 'dietary':["herbivorous"], 'epiderm':["fur"], 'keyword':[]},
 
-'raccoon': {'colors':["white","black","white"], 'location':["forest"], 'size':["small"], 'behaviour':["alone"], 'dietary':["omnivorous"], 'epiderm':["fur"], 'keyword':[]},
+'raccoon': {'colors':["white","black","brown"], 'location':["forest"], 'size':["small"], 'behaviour':["alone"], 'dietary':["omnivorous"], 'epiderm':["fur"], 'keyword':[]},
 
 'rhinoceros': {'colors':["grey"], 'location':["savannah"], 'size':["big"], 'behaviour':["alone","in group"], 'dietary':["herbivorous"], 'epiderm':["skin"], 'keyword':["ivory"]},
 
