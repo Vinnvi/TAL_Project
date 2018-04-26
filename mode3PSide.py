@@ -35,12 +35,27 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 		if mots[0] in s_be_verbs :
 			1
 		elif mots[0] in auxiliary :
-			1
+			if mots[1] in subject :
+				if checkConj(mots[1],mots[0]):
+					if mots[2] == "have" :
+						if mots[3] == "wings":
+							if classeToGuess != "insect" and classeToGuess != "bird" :
+								return "No, it has no wings"
+							elif classeToGuess == "bird" :
+								return "Yes, it has wings"
+							else :
+								myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
+								myWings = myAnimal.get("wings")
+								if myWings == "wings" :
+									return "Yes, it has wings"
+								else :
+									return "No, it has no wings"
+
 		elif mots[0] in auxiliary_n :
 			1
 		elif mots[0] in be_verbs :
 			if mots[1] in subject :
-				if checkConj(mots[1],mots[2]):
+				if checkConj(mots[1],mots[0]):
 					if mots[2] in a :
 						if mots[3] in modeAnimal.colors :
 							myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
@@ -147,7 +162,7 @@ be_verbs = ["was","is","will","were","am","are","i'm","it's"]
 be_verbs_n = ["isn't","aren't","wasn't"]
 s_be_verbs = ["i'm","it's"]
 a = ["a","an","the"]
-negatve = ["not"]
+negative = ["not","no"]
 have_verbs = ["have","has","had"]
 
 
@@ -163,20 +178,20 @@ t = ["ever","never","already"]
 location = ["grassland","city","water","savannah","forest","jungle","river","mountain","mountains","desert","antartic","sea","floe"]
 
 #disable you + is possibility for example (and check 's' for 3rd person)
-#aim subject + be/have
+#aim subject + be/have/do
 def checkConj(subject,verb):
 	if subject == "i" :
-		if verb == "am" or verb == "have":
+		if verb == "am" or verb == "have" or verb=="do":
 			return True
 		else :
 			return False
 	if subject == "you" or subject == "we" or subject == "they" :
-		if verb == "are" or verb == "have" :
+		if verb == "are" or verb == "have"  or verb=="do":
 			return True
 		else :
 			return False
-	if subject == "it" or subject == "he" or subject "she":
-		if verb == "is" or verb == "has" :
+	if subject == "it" or subject == "he" or subject == "she":
+		if verb == "is" or verb == "has"  or verb=="does" :
 			return True
 		else :
 			return False
