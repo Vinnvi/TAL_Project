@@ -18,7 +18,7 @@ def boucle(classeToGuess,animalToGuess):
 	mots = myInput.lower().split()
 	answer = decomposition_sentence(mots,classeToGuess,animalToGuess)
 	if answer == "ok":
-		print("You guess it!")
+		print("You guessed it!")
 	else :
 		print(answer)
 		boucle(classeToGuess,animalToGuess)
@@ -43,29 +43,12 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 								return "Yes, it has many colors"
 							else :
 								return "No, it hasn't many colors"
-
+						elif mots[3] in modeAnimal.colors :
+							return color_question(mots,3,classeToGuess,animalToGuess)
 						elif mots[3] == "wings" or mots[3] == "wing":
-							if classeToGuess != "insect" and classeToGuess != "bird" :
-								return "No, it has no wings"
-							elif classeToGuess == "bird" :
-								return "Yes, it has wings"
-							else :
-								myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
-								myWings = myAnimal.get("wings")
-								if myWings == "wings" :
-									return "Yes, it has wings"
-								else :
-									return "No, it has no wings"
+							return wings_question(mots,classeToGuess,animalToGuess)
 						elif mots[3] == "fur" :
-							if classeToGuess != "mammal":
-								return "No, it has no fur"
-							else :
-								myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
-								myEpiderm = myAnimal.get("epiderm")
-								if myEpiderm == "fur" :
-									return "Yes, it has fur"
-								else :
-									return "No, it has no fur"
+							return fur_question(mots,classeToGuess,animalToGuess)
 				else :
 					return "Conjuction mistake with Do verb"
 
@@ -74,19 +57,36 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 		elif mots[0] in be_verbs :
 			if mots[1] in subject :
 				if checkConj(mots[1],mots[0]):
-					if mots[2] in a :
+					if mots[2] == "big" or mots[2] == "tall" or mots[2]=="large" :
+						myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
+						mySize = myAnimal.get("size")
+						if "large" in mySize :
+							return "Yes it's a large animal"
+						if "very large" in mySize :
+							return "Yes, it's even a very large animal"
+						else:
+							return "No, it's not "+mots[2]
+					elif mots[2] == "medium" :
+						myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
+						mySize = myAnimal.get("size")
+						if "medium" in mySize :
+							return "Yes, it's an animal with a medium size"
+						else:
+							return "No, it's not medium"
+					if mots[2] == "small" or mots[2] == "little" :
+						myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
+						mySize = myAnimal.get("size")
+						if "small" in mySize :
+							return "Yes it's a small animal"
+						if "very small" in mySize :
+							return "Yes, it's even a very small animal"
+						else:
+							return "No, it's not "+mots[2]
+					elif mots[2] in a :
 						if mots[3] in gender :
-							if classeToGuess == mots[3]:
-								return "Yes it is."
-							else :
-								return "No, it's not a "+mots[3]
+							return gender_question(mots,3,classeToGuess,animalToGuess)
 						elif mots[3] in modeAnimal.colors :
-							myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
-							myColors = myAnimal.get("colors")
-							for c in myColors :
-								if mots[3] == c :
-									return "Yes, it is "+mots[3]
-							return "No, it is not "+mots[3]
+							return color_question(mots,3,classeToGuess,animalToGuess)
 						else :
 							for classeA in list(databaseAnimals.animals.keys()) :
 								for an in list(databaseAnimals.animals.get(classeA).keys()) :
@@ -98,35 +98,21 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 							else :
 								return "No it's not a "+mots[3]
 					elif mots[2] in modeAnimal.colors :
-						myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
-						myColors = myAnimal.get("colors")
-						for c in myColors :
-							if mots[3] == c :
-								return "Yes, it is "+mots[2]
-						return "No, it is not "+mots[2]
+						return color_question(mots,2,classeToGuess,animalToGuess)
 					elif mots[2] in gender :
-						if classeToGuess == mots[2]:
-							return "Yes it is."
-						else :
-							return "No, it's not a "+mots[2]
+						return gender_question(mots,2,classeToGuess,animalToGuess)
 				else:
 					return "Conjuction error with be verb"
 		elif mots[0] in be_verbs_n :
 			1
 		elif mots[0] in su_be :
-			if mots[1] in a :
+			if mots[1] in size :
+				return size_question(mots,1,classeToGuess,animalToGuess)
+			elif mots[1] in a :
 				if mots[2] in gender :
-					if classeToGuess == mots[2]:
-						return "Yes it is."
-					else :
-						return "No, it's not a "+mots[2]
-				if mots[2] in modeAnimal.colors :
-					myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
-					myColors = myAnimal.get("colors")
-					for c in myColors :
-						if mots[2] == c :
-							return "Yes, it is "+mots[2]
-					return "No, it is not "+mots[2]
+					return gender_question(mots,2,classeToGuess,animalToGuess)
+				elif mots[2] in modeAnimal.colors :
+					return color_question(mots,2,classeToGuess,animalToGuess)
 				else :
 					for classeA in list(databaseAnimals.animals.keys()) :
 						for an in list(databaseAnimals.animals.get(classeA).keys()) :
@@ -138,31 +124,20 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 					else :
 						return "No it's not a "+mots[2]
 			elif mots[1] in modeAnimal.colors :
-				myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
-				myColors = myAnimal.get("colors")
-				for c in myColors :
-					if mots[2] == c :
-						return "Yes, it is "+mots[2]
-				return "No, it is not "+mots[2]
-
+				return color_question(mots,1,classeToGuess,animalToGuess)
 		elif mots[0] in subject :
 			if mots[1] in be_verbs :
-				if mots[2] in action_verbs:
+				if mots[2] in size :
+					return size_question(mots,2,classeToGuess,animalToGuess)
+
+				elif mots[2] in action_verbs:
 					1
-				if mots[2] in a :
+				elif mots[2] in a :
 					if mots[3] in gender :
-						if classeToGuess == mots[3]:
-							return "Yes it is."
-						else :
-							return "No, it's not a "+mots[3]
+						return gender_question(mots,3,classeToGuess,animalToGuess)
 
 					if mots[3] in modeAnimal.colors :
-						myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
-						myColors = myAnimal.get("colors")
-						for c in myColors :
-							if mots[3] == c :
-								return "Yes, it is "+mots[3]
-						return "No, it is not "+mots[3]
+						return color_question(mots,3,classeToGuess,animalToGuess)
 					else :
 
 						for classeA in list(databaseAnimals.animals.keys()) :
@@ -175,12 +150,7 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 						else :
 							return "No it's not a "+mots[3]
 				elif mots[2] in modeAnimal.colors :
-					myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
-					myColors = myAnimal.get("colors")
-					for c in myColors :
-						if mots[2] == c :
-							return "Yes, it is "+mots[2]
-					return "No, it is not "+mots[2]
+					return color_question(mots,2,classeToGuess,animalToGuess)
 
 
 			elif mots[1] in be_verbs_n :
@@ -204,34 +174,11 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 							return "No, it hasn't many colors"
 
 					elif mots[2] in modeAnimal.colors :
-						myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
-						myColors = myAnimal.get("colors")
-						for c in myColors :
-							if mots[2] == c :
-								return "Yes, it is "+mots[2]
-						return "No, it is not "+mots[2]
+						return color_question(mots,2,classeToGuess,animalToGuess)
 					elif mots[2] == "wings" or mots[2] == "wing":
-						if classeToGuess != "insect" and classeToGuess != "bird" :
-							return "No, it has no wings"
-						elif classeToGuess == "bird" :
-							return "Yes, it has wings"
-						else :
-							myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
-							myWings = myAnimal.get("wings")
-							if myWings == "wings" :
-								return "Yes, it has wings"
-							else :
-								return "No, it has no wings"
+						return wings_question(mots,classeToGuess,animalToGuess)
 					elif mots[2] == "fur" :
-						if classeToGuess != "mammal":
-							return "No, it has no fur"
-						else :
-							myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
-							myEpiderm = myAnimal.get("epiderm")
-						if myEpiderm == "fur" :
-							return "Yes, it has fur"
-						else :
-							return "No, it has no fur"
+						return fur_question(mots,classeToGuess,animalToGuess)
 				else :
 					return "conjugation error with have verb"
 
@@ -240,6 +187,73 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 		else :
 			return "error"
 		return "error"
+
+
+
+def size_question(mots,level,classeToGuess,animalToGuess):
+	if mots[level] == "big" or mots[level] == "tall" or mots[level]=="large" :
+		myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
+		mySize = myAnimal.get("size")
+		if "large" in mySize :
+			return "Yes it's a large animal"
+		if "very large" in mySize :
+			return "Yes, it's even a very large animal"
+		else:
+			return "No, it's not "+mots[level]
+	elif mots[level] == "medium" :
+		myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
+		mySize = myAnimal.get("size")
+		if "medium" in mySize :
+			return "Yes, it's an animal with a medium size"
+		else:
+			return "No, it's not medium"
+	if mots[level] == "small" or mots[level] == "little" :
+		myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
+		mySize = myAnimal.get("size")
+		if "small" in mySize :
+			return "Yes it's a small animal"
+		if "very small" in mySize :
+			return "Yes, it's even a very small animal"
+		else:
+			return "No, it's not "+mots[level]
+
+def color_question(mots,level,classeToGuess,animalToGuess):
+	myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
+	myColors = myAnimal.get("colors")
+	for c in myColors :
+		if mots[level] == c :
+			return "Yes, it is "+mots[level]
+	return "No, it is not "+mots[level]
+
+def wings_question(mots,classeToGuess,animalToGuess):
+	if classeToGuess != "insect" and classeToGuess != "bird" :
+		return "No, it has no wings"
+	elif classeToGuess == "bird" :
+		return "Yes, it has wings"
+	else :
+		myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
+		myWings = myAnimal.get("wings")
+		if myWings == "wings" :
+			return "Yes, it has wings"
+		else :
+			return "No, it has no wings"
+
+def gender_question(mots,level,classeToGuess,animalToGuess):
+	if classeToGuess == mots[level]:
+		return "Yes it is."
+	else :
+		return "No, it's not a "+mots[level]
+
+def fur_question(mots,classeToGuess,animalToGuess):
+	if classeToGuess != "mammal":
+		return "No, it has no fur"
+	else :
+		myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
+		myEpiderm = myAnimal.get("epiderm")
+	if myEpiderm == "fur" :
+		return "Yes, it has fur"
+	else :
+		return "No, it has no fur"
 
 auxiliary_n = ["don't","can't","couldn't"]
 auxiliary = ["did","does","do","can","could"]
@@ -251,7 +265,9 @@ s_be_verbs = ["i'm","it's"]
 a = ["a","an","the"]
 negative = ["not","no"]
 have_verbs = ["have","has","had"]
+poss_pronouns = ["my","your","his","her","our","their"]
 
+size = ["big","tall","large","medium","small","little"]
 
 see = ["see","saw","seen","seeing","sees"]
 live = ["live","living","lives","lived"]
