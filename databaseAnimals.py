@@ -29,33 +29,33 @@ animals = {
 
 'bee': {'colors':["black","yellow"], 'size':["small"], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':["honey"]},
 
-'bumblebee': {'colors':["black","yellow"], 'size':[], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
+'bumblebee': {'colors':["black","yellow"], 'size':["small"], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
 
 'butterfly': {'colors':["many colors"], 'size':["small"], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
 
-'cicadas': {'colors':["black"], 'size':[], 'movement':["walking"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
+'cicadas': {'colors':["black"], 'size':["small"], 'movement':["walking"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
 
-'cricket': {'colors':[], 'size':[], 'movement':["jumping"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
+'cricket': {'colors':[], 'size':["small"], 'movement':["jumping"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
 
-'dragonfly': {'colors':["many colors"], 'size':[], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
+'dragonfly': {'colors':["many colors"], 'size':["small"], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
 
-'flea': {'colors':[], 'size':[], 'movement':["jumping"], 'limbs':["6 limbs"], 'wings':["no wings"], 'keyword':[]},
+'flea': {'colors':[], 'size':["small"], 'movement':["jumping"], 'limbs':["6 limbs"], 'wings':["no wings"], 'keyword':[]},
 
 'fly': {'colors':["black"], 'size':["small"], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
 
 'grasshooper': {'colors':["green"], 'size':["small"], 'movement':["jumping"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
 
-'ladybird': {'colors':["red"], 'size':[], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
+'ladybird': {'colors':["red"], 'size':["small"], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
 
-'mantis': {'colors':[], 'size':[], 'movement':["walking"], 'limbs':["6 limbs"], 'wings':["no wings"], 'keyword':[]},
+'mantis': {'colors':[], 'size':["small"], 'movement':["walking"], 'limbs':["6 limbs"], 'wings':["no wings"], 'keyword':[]},
 
 'mosquito': {'colors':[], 'size':["small"], 'movement':["flying"], 'limbs':["6 limbs"], 'wings':["wings"], 'keyword':[]},
 
 'spider': {'colors':[], 'size':["small"], 'movement':["walking"], 'limbs':["8 limbs"], 'wings':["no wings"], 'keyword':[]},
 
-'termite': {'colors':[], 'size':[], 'movement':["walking"], 'limbs':["6 limbs"], 'wings':["no wings"], 'keyword':[]},
+'termite': {'colors':[], 'size':["small"], 'movement':["walking"], 'limbs':["6 limbs"], 'wings':["no wings"], 'keyword':[]},
 
-'worm': {'colors':[], 'size':[], 'movement':["crawling"], 'limbs':["no limbs"], 'wings':["no wings"], 'keyword':[]}
+'worm': {'colors':[], 'size':["small"], 'movement':["crawling"], 'limbs':["no limbs"], 'wings':["no wings"], 'keyword':[]}
 },
 
 'mammal' : { ### CLASS MAMMAL ###
@@ -96,9 +96,9 @@ animals = {
 
 'rabbit': {'colors':["many colors"], 'location':["forest", "grassland"], 'size':["small"], 'behaviour':["alone"], 'dietary':["herbivorous"], 'epiderm':["fur"], 'keyword':[]},
 
-'raccoon': {'colors':["white","black","white"], 'location':["forest"], 'size':["small"], 'behaviour':["alone"], 'dietary':["omnivorous"], 'epiderm':["fur"], 'keyword':[]},
+'raccoon': {'colors':["white","black","brown"], 'location':["forest"], 'size':["small"], 'behaviour':["alone"], 'dietary':["omnivorous"], 'epiderm':["fur"], 'keyword':[]},
 
-'rhinoceros': {'colors':["grey"], 'location':["savannah"], 'size':["big"], 'behaviour':["alone","in group"], 'dietary':["herbivorous"], 'epiderm':["skin"], 'keyword':["ivory"]},
+'rhinoceros': {'colors':["grey"], 'location':["savannah"], 'size':["large"], 'behaviour':["alone","in group"], 'dietary':["herbivorous"], 'epiderm':["skin"], 'keyword':["ivory"]},
 
 'tiger': {'colors':["yellow", "orange","black","white"], 'location':["forest","jungle"], 'size':["medium"],
 'behaviour':["alone"], 'dietary':["carnivorous"], 'epiderm':["fur"], 'keyword':[]},
