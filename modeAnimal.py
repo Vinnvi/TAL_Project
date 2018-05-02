@@ -52,8 +52,8 @@ queriesCategory = {
 dataAnswers = []
 
 #------------- READING -------------
-yesWords = ["y", "ye", "yeah", "yea", "yes", "agree", "like", "correct", "case", "indeed", "be", "is", "course", "think", "suppose", "sure", "yup", "am", "can", "do", "does", "yos", "affirmative", "ok", "okay"]
-noWords = ["no", "not", "neither", "without", "n", "nah", "nope", "wrong", "nop", "doubt", "mistake", "negative"]
+yesWords = ["y", "ye", "yeah", "yea", "yes", "agree", "like", "correct", "case", "indeed", "be", "is", "course", "think", "suppose", "guess", "sure", "yup", "am", "can", "do", "does", "yos", "affirmative", "ok", "okay"]
+noWords = ["no", "not", "neither", "without", "n", "nah", "nope", "wrong", "nop", "doubt", "mistake", "negative", "why"]
 #doubtWords = ["think", "suppose", "sure",]   # means yes / means no when associated with a negative word
 #negativeDoubt = ["doubt", "mistake", ]          # means no / means yes when associated with a negative word
 
@@ -319,26 +319,33 @@ def modeGuessing() :
 # 1 si il est interprété comme une réponse négative
 def answerYesOrNo(myInput):
     words = myInput.lower().split()
-    negative, positive = 0, 0,
-    question = True if myInput[len(myInput)-1] == "?" else False
-    for word in words:
-        if "n't" in word or word in noWords:
-            negative += 1
-        elif "'s" in word or word in yesWords:
-            positive += 1
-        """elif "?" in word:
-            question = True"""
+    if len(words) > 0:
+        negative, positive = 0, 0,
+        question = True if myInput[len(myInput)-1] == "?" else False
+        for word in words:
+            if "n't" in word or word in noWords:
+                negative += 1
+            elif "'s" in word or word in yesWords:
+                positive += 1
+            """elif "?" in word:
+                question = True"""
 
-    if question:
-        randomQuestionHandling = random.choice(questionHandling)
-        delay_print(randomQuestionHandling+" Answer my previous question first.\n") #TODO
+        if question:
+            randomQuestionHandling = random.choice(questionHandling)
+            delay_print(randomQuestionHandling+" Answer my previous question first.\n") #TODO
+            answer = input()
+            return answerYesOrNo(answer)
+
+        if negative == 0 and positive == 0:
+            randomOpenAnswerHandling = random.choice(openAnswerHandling)
+            delay_print(randomOpenAnswerHandling+" Please give an affirmative or negative answer.\n") #TODO
+            answer = input()
+            return answerYesOrNo(answer)
+
+        return negative%2 == 0
+
+    else :
+        delay_print("Answer something at least ! \n")
         answer = input()
         return answerYesOrNo(answer)
 
-    if negative == 0 and positive == 0:
-        randomOpenAnswerHandling = random.choice(openAnswerHandling)
-        delay_print(randomOpenAnswerHandling+" Please give an affirmative or negative answer.") #TODO
-        answer = input()
-        return answerYesOrNo(answer)
-
-    return negative%2 == 0
