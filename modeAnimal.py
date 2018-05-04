@@ -4,6 +4,8 @@ import random
 import time
 import sys
 import databaseAnimals
+import msvcrt as m
+import copy
 
 answerRight = 0
 name = ""
@@ -72,11 +74,14 @@ openAnswerHandling = ["I didn't quite understand that...", "What did you mean th
 #------------- MISCELLANEOUS -------------
 vowels = ["a","i","u","e","o"]
 
+def wait():
+    m.getch()
+
 def delay_print(s):
     for c in s:
         sys.stdout.write(c)
         sys.stdout.flush()
-        time.sleep(0.01)
+        time.sleep(0.001)
 
 #Add name to some queries and smalltalks to make it more personal
 def updateDataWithName(name):
@@ -157,9 +162,21 @@ def answerClassAnimal():
         else:
             delay_print("I'm not sure to understand which class you want...")
             return None
+
+def openDatabase():
+    delay_print("\nLet's open the gates of Hell !\n")
+    print("*CHEERING* *CHEERING* *CHEERING*")
+    moreDisplay = 1
+    while moreDisplay == 1 :
+        displayListAnimals()
+        delay_print("Do you want a glimpse at another class ? ")
+        answer = input()
+        moreDisplay = answerYesOrNo(answer)
+    delay_print("\nLet's close the gates of Hell !\n")
+    print("*BOOING* *BOOING* *BOOING*\n")
 #Display the list of animals in database for one class after asking which class
 def displayListAnimals():
-    delay_print("So tell me, which class of animal are you interested in, birds, insects, mammals of fishs?")
+    delay_print("So tell me, which class of animal are you interested in, bird, insect, mammal of fish?\n")
     classAnimal = answerClassAnimal()
     if classAnimal:
         displayAnimal(classAnimal)
@@ -182,7 +199,6 @@ def displayAnimal(classAnimal):
         print(finalDisplay)
         finalDisplay = ""
     print("#####################")
-    print("\n")
 
 #Find a question to ask to reduce possible animals
 def askQuestion(classAnimal, tabPossibilities, lv):
@@ -216,50 +232,73 @@ def findCriteriaToAsk(classAnimal, tabPossibilities):
 #Main program
 def modeAnimal():
     global answerRight, name
-    delay_print("Hello and welcome blabla\n")
-
-    # delay_print("Here come our first challenger, do not make the crowd waiting, give us a name\n")
-    # answer = input()
-    # name = answer
-    # updateDataWithName(name)
-    # nb = random.randint(0,1)
-    # delay_print(answerName[nb]+"\n")
-    # delay_print("I suppose you are already acquainted with the rules ? \n")
-    # answer = input()
-    # choice = answerYesOrNo(answer)
-    # if(choice):
-    #     delay_print("Perfect, we have a profesional here.\n")
-    # else :
-    #     delay_print("I suppose it is time for explanations then.\n")
-    # delay_print("Then now, choose the game you are going to participate. Before you  are two interrupters, press 1 if you have an animal in mind or 2 if you want to guess ours.\n")
-    answerRight = 0
-    modeAnswering()
-    """while answerRight == 0 :
+    delay_print("\n*women singing* WILD GUESS, WILD GUESS, you make us WILD, WILD GUESS, WILD GUESS, you make us MAD *women singing*\n")
+    delay_print("\nHello and welcome to WILD GUESS, the TV game that will leave you glued to your sofa along with your brain. Once again, I, your humble servant Francisco Xavier Prudencio Pinheiro will have the honour to be your presentator.\n")
+    delay_print("Let's not waste any time, Here come our first challenger, give him a huuuuuuuge applause please !\n")
+    print("*CLAP* *CLAP* *CLAP* *CLAP* *CLAP* *CLAP*\n")
+    delay_print(" Well come on, do not make the crowd waiting, give us a name !\n")
+    answer = input()
+    name = answer
+    updateDataWithName(name)
+    nb = random.randint(0,1)
+    delay_print(answerName[nb]+"\n")
+    delay_print("\nI suppose you are already acquainted with the rules ? \n")
+    answer = input()
+    choice = answerYesOrNo(answer)
+    if(choice):
+        delay_print("Perfect, we have a professional here.\n")
+    else :
+        delay_print("I suppose it is time for explanations then.\n")
+        delay_print("WILD GUESS is a simple game between you and us, and when I say us, I mean me and those genius behind me...\n")
+        print("*cheers of crowd*")
+        delay_print("...the objective is to find the animal that the other has in mind. \n2 modes are at your disposal, the first one, the Answering mode, will have you answering to our questions. Should we cannot find the animal in the number of queries then you win and you will go back heavier of a few thousand dollars. But should we succeed... well, let's not talk about that.\nIn the other mode, the Guessing mode, the table is turned and it is your turn to put us on the grill.\n")
+    delay_print("\nThen now, it is time to choose the mode, if you want, you can leave the result to our wheel of Fate before you, so, do you want to choose by yourself ?\n")
+    answer = input()
+    choice = answerYesOrNo(answer)
+    if(choice):
+        delay_print("Great ! Then what will it be ? Are you going to guess our animal ?\n")
         answer = input()
-        if(answer == "1") :
-            answerRight = 1
-            modeAnswering()
-        elif(answer == "2") :
-            answerRight = 1
+        choice = answerYesOrNo(answer)
+        if(choice):
+            delay_print("You better be good !\n")
+            modeGuessing()
+        else:
+            delay_print("Oh we will guess yours ? You better find a good animal !\n")
+            modeAnswering(0)
+    else:
+        delay_print("Oh ! The Wheel of Fate then, let's spin it ! Just click wherever you want and the wheel will start.\n")
+        wait()
+        delay_print("*rolling*\nWhat will be the result, I cannot wait !\n*cheering*\n")
+        resultWheel = random.uniform(0, 1)
+        if resultWheel :
+            delay_print("Let's go for the Guessing Mode !\n")
             modeGuessing()
         else :
-            delay_print("Do you not know how to press a button ? Do it, 1 or 2\n")"""
+            delay_print("Let's go for the Answering Mode !\n")
+            modeAnswering(0)
 
 #The bot tries to guess the animal that the player has in mind
-def modeAnswering() :
+def modeAnswering(valueRestart) :
     global answerRight
     answerRight = 0
-    # delay_print("Answering huh? Then do you already have an animal in mind?\n")
-    # while answerRight == 0 :
-    #     answer = input()
-    #     choice = answerYesOrNo(answer)
-    #     if(choice) :
-    #         answerRight = 1
-    #         delay_print("Well then, ladies and gentlemen, the game can begin !\n")
-    #     else :
-    #         delay_print("Not yet ? Come on, the crowd is on fire, find us an animal !\n")
-    # delay_print("I will ask you a few questions, do not hesitate to tell me if you do not know or if you are not sure of the answer !\n")
-    tabPossibilities = databaseAnimals.animals
+    if not valueRestart :
+        delay_print("\nLADIES AND GENTLEMEN, THE ANSWERING MODE CAN NOW BEGIN !\n")
+        delay_print("\nWould you like to take a look at our incredible database of animals ? It could be useful to choose your animal or just ensure that your informations are right. I can't even count the number of people who do not know that a dolphin or a whale are mammals\nShould we open the database?\n")
+        answer = input()
+        choice = answerYesOrNo(answer)
+        if(choice) :
+            openDatabase()
+    delay_print("Do you already have an animal in mind?\n")
+    while answerRight == 0 :
+        answer = input()
+        choice = answerYesOrNo(answer)
+        if(choice) :
+            answerRight = 1
+            delay_print("Perfect, let's move on then.\n")
+        else :
+            delay_print("Not yet ? Come on, the crowd is on fire, find us an animal !\n")
+    delay_print("\nI will ask you a few questions, do not hesitate to tell me if you do not know or if you are not sure of the answer !\n")
+    tabPossibilities = databaseAnimals.animals.copy()
     classAnimal = firstFilter(tabPossibilities)
     tabPossibilities = tabPossibilities.get(classAnimal)
     lvSmalltalk = 0
@@ -296,13 +335,17 @@ def modeAnswering() :
                  delay_print("I've got no idea... Did I make a mistake ? No. It must be you. False informations I'm sure, or maybe an animal not present in our database.\n")
     elif (not tabPossibilities):#No animals left in possibilities
         delay_print("I don't know any animal that matches your description... Are you sure that your informations are correct ? You should take a look at our database of animals\n")
-    delay_print("My, my, my, it is already the end of this session. Do you want to stop there ?\n")
+    delay_print("\nMy, my, my, it is already the end of this session. Do you want to stop there ?\n")
     answer = input()
     if(answerYesOrNo(answer)):
         delay_print(" ".join(["How sad, let us give a huge row of applause for", name,"!"]))
     else:
-        delay_print("Great ! Let us start over then !\n")
-        modeAnswering()
+        delay_print("Do you want to continue in the same mode ?\n")
+        answer = input()
+        if(answerYesOrNo(answer)):
+            modeAnswering(1)
+        else :
+            modeGuessing(0)
 
 
 

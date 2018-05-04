@@ -57,7 +57,7 @@ def mode2():
 
 def mode3():
 	from mode3PSide import mode3PSide
-	mode3PSide()
+	#mode3PSide()
 
 	from modeAnimal import modeAnimal
 	modeAnimal()

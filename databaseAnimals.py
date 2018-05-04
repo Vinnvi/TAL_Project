@@ -7,7 +7,7 @@ animals = {
 'size':["small"],
 'keyword':[]},
 
-'egle': { 'colors':[], 'size':["medium"], 'keyword':["sigil of america"]},
+'eagle': { 'colors':[], 'size':["medium"], 'keyword':["sigil of america"]},
 
 'falcon': {'colors':[], 'size':["big"], 'keyword':[]}
 
