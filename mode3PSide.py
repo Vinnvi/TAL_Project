@@ -33,7 +33,64 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 		if mots[0] in s_be_verbs :
 			1
 		elif mots[0] in auxiliary :
-			if mots[1] in subject :
+			if mots[1] in poss_pronouns :
+				if mots[2] == "name":
+					if mots[3] == "contains":
+						if mots[4] == "the":
+							if mots[5] == "letter":
+								return letter_question(mots,6,classeToGuess,animalToGuess)
+							else:
+								return letter_question(mots,5,classeToGuess,animalToGuess)
+						elif mots[4] in a :
+							return letter_question(mots,5,classeToGuess,animalToGuess)
+						else:
+							return letter_question(mots,4,classeToGuess,animalToGuess)
+					if mots[3] in letter_verbs :
+						if mots[4] == "by" or mots[4] == "with" :
+							if mots[5] in a or mots[5]== "the":
+								if mots[6] == "letter":
+									return letter_question(mots,7,classeToGuess,animalToGuess)
+								else :
+									return letter_question(mots,6,classeToGuess,animalToGuess)
+							elif mots[4] == "letter" :
+								return letter_question(mots,6,classeToGuess,animalToGuess)
+							else :
+								return letter_question(mots,5,classeToGuess,animalToGuess)
+					elif mots[3] == "has" :
+						if mots[4] in a or mots[4]=="the":
+							if mots[5] == "letter":
+								return letter_question(mots,6,classeToGuess,animalToGuess)
+							else :
+								return letter_question(mots,5,classeToGuess,animalToGuess)
+			elif mots[1] == "name" :
+				if mots[2] == "contains":
+					if mots[3] == "the":
+						if mots[4] == "letter":
+							return letter_question(mots,5,classeToGuess,animalToGuess)
+						else:
+							return letter_question(mots,4,classeToGuess,animalToGuess)
+					elif mots[3] in a :
+						return letter_question(mots,4,classeToGuess,animalToGuess)
+					else:
+						return letter_question(mots,3,classeToGuess,animalToGuess)
+				if mots[2] in letter_verbs :
+					if mots[3] == "by" or mots[3] == "with" :
+						if mots[4] in a or mots[4]== "the":
+							if mots[5] == "letter":
+								return letter_question(mots,6,classeToGuess,animalToGuess)
+							else :
+								return letter_question(mots,5,classeToGuess,animalToGuess)
+						elif mots[4] == "letter" :
+							return letter_question(mots,5,classeToGuess,animalToGuess)
+						else :
+							return letter_question(mots,4,classeToGuess,animalToGuess)
+				elif mots[2] == "has" :
+					if mots[3] in a or mots[3]=="the":
+						if mots[4] == "letter":
+							return letter_question(mots,5,classeToGuess,animalToGuess)
+						else :
+							return letter_question(mots,4,classeToGuess,animalToGuess)
+			elif mots[1] in subject :
 				if checkConj(mots[1],mots[0]):
 					if mots[2] == "have" :
 						if mots[3] == "many" and mots[4] == "colors":
@@ -184,9 +241,91 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 
 		elif mots[0] in action_verbs :
 			1
+		elif mots[0] in poss_pronouns :
+			if mots[1] == "name":
+				if mots[2] == "contains":
+					if mots[3] == "the":
+						if mots[4] == "letter":
+							return letter_question(mots,5,classeToGuess,animalToGuess)
+						else:
+							return letter_question(mots,4,classeToGuess,animalToGuess)
+					elif mots[3] in a :
+						return letter_question(mots,4,classeToGuess,animalToGuess)
+					else:
+						return letter_question(mots,3,classeToGuess,animalToGuess)
+				if mots[2] in letter_verbs :
+					if mots[3] == "by" or mots[3] == "with" :
+						if mots[4] in a or mots[4]== "the":
+							if mots[5] == "letter":
+								return letter_question(mots,6,classeToGuess,animalToGuess)
+							else :
+								return letter_question(mots,5,classeToGuess,animalToGuess)
+						elif mots[4] == "letter" :
+							return letter_question(mots,5,classeToGuess,animalToGuess)
+						else :
+							return letter_question(mots,4,classeToGuess,animalToGuess)
+				elif mots[2] == "has" :
+					if mots[3] in a or mots[3]=="the":
+						if mots[4] == "letter":
+							return letter_question(mots,5,classeToGuess,animalToGuess)
+						else :
+							return letter_question(mots,4,classeToGuess,animalToGuess)
+		elif mots[0] == "name":
+			if mots[1] == "contains":
+				if mots[2] == "the":
+					if mots[3] == "letter":
+						return letter_question(mots,4,classeToGuess,animalToGuess)
+					else:
+						return letter_question(mots,3,classeToGuess,animalToGuess)
+				elif mots[2] in a :
+					return letter_question(mots,3,classeToGuess,animalToGuess)
+				else:
+					return letter_question(mots,2,classeToGuess,animalToGuess)
+			if mots[1] in letter_verbs :
+				if mots[2] == "by" or mots[2] == "with" :
+					if mots[3] in a or mots[3]== "the":
+						if mots[4] == "letter":
+							return letter_question(mots,5,classeToGuess,animalToGuess)
+						else :
+							return letter_question(mots,4,classeToGuess,animalToGuess)
+					elif mots[3] == "letter" :
+						return letter_question(mots,4,classeToGuess,animalToGuess)
+					else :
+						return letter_question(mots,3,classeToGuess,animalToGuess)
+			elif mots[1] == "has" :
+				if mots[2] in a or mots[2]=="the":
+					if mots[3] == "letter":
+						return letter_question(mots,4,classeToGuess,animalToGuess)
+					else :
+						return letter_question(mots,3,classeToGuess,animalToGuess)
 		else :
 			return "error"
 		return "error"
+
+def letter_question(mots,level,classeToGuess,animalToGuess):
+	if not mots[level] :
+		return "error : donnez une lettre"
+	else :
+		if len(mots[level])>1:
+			return "error : please just give one letter"
+		else :
+			myAnimal = animalToGuess
+			if "start" in mots or "starts" in mots or "begin" in mots or "begins" in mots:
+				if myAnimal[0] == mots[level]:
+					return "Yes, it starts with by a "+mots[level]
+				else:
+					return "No, it doesn't start by a "+mots[level]
+			elif "end" in mots or "ends" in mots or "finish" in mots or "finishes" in mots :
+				s = len(myAnimal)
+				if myAnimal[s-1] == mots[level]:
+					return "Yes, it ends by a "+mots[level]
+				else :
+					return "No, "+mots[level]+" is not the last letter"
+			else :
+				if mots[level] in myAnimal:
+					return "Yes, it contains the letter "+mots[level]
+				else :
+					return "No, there is no "+mots[level]
 
 
 
@@ -265,7 +404,7 @@ s_be_verbs = ["i'm","it's"]
 a = ["a","an","the"]
 negative = ["not","no"]
 have_verbs = ["have","has","had"]
-poss_pronouns = ["my","your","his","her","our","their"]
+poss_pronouns = ["my","your","his","her","its","our","their"]
 
 size = ["big","tall","large","medium","small","little"]
 
@@ -276,10 +415,14 @@ swim = ["swim","swimming","swam","swum","swims"]
 crawl = ["crawling","crawl","crawled","crawls"]
 eat = ["eat","eating","eats","ate","eaten"]
 
+
+letter_verbs = ["start","starts","contains","contain","end","ends","finishes","begin","begins"]
+
 action_verbs = [see,live,fly,swim,crawl,eat]
 t = ["ever","never","already"]
 location = ["grassland","city","water","savannah","forest","jungle","river","mountain","mountains","desert","antartic","sea","floe"]
 gender  = ["bird","fish","mammal","insect"]
+
 #disable you + is possibility for example (and check 's' for 3rd person)
 #aim subject + be/have/do
 def checkConj(subject,verb):
