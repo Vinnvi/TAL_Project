@@ -53,7 +53,7 @@ dataAnswers = []
 
 #------------- READING -------------
 yesWords = ["y", "ye", "yeah", "yea", "yes", "agree", "like", "correct", "case", "indeed", "be", "is", "course", "think", "suppose", "guess", "sure", "yup", "am", "can", "do", "does", "yos", "affirmative", "ok", "okay"]
-noWords = ["no", "not", "neither", "without", "n", "nah", "nope", "wrong", "nop", "doubt", "mistake", "negative", "why"]
+noWords = ["no", "not", "neither", "without", "n", "nah", "nope", "wrong", "nop", "doubt", "mistake", "negative", "why", "niet", "nie"]
 #doubtWords = ["think", "suppose", "sure",]   # means yes / means no when associated with a negative word
 #negativeDoubt = ["doubt", "mistake", ]          # means no / means yes when associated with a negative word
 
@@ -66,11 +66,13 @@ beforeAsking_Lv1 = ["So tell me ", "You look extremely confident ", "I would ask
 beforeAsking_Lv2 = ["You are quite tricky, aren't you", "I feel so close", "You are testing my patience","Oh my, it doesn't look good", "I will take that smile out of your face","Ohlala","Me worried ? Not at all.","You're annoying","Think, just think"]
 beforeAsking_Lv3 = ["What goddamn animal is left ?", "Come on brain, work !", "Ohlala Ohlala Ohlala","Why ! What animal did you choose !","Is that a real animal at least?", "You are cheating, isn't it?","I don't like to play with you"]
 beforeAsking = [beforeAsking_Lv1,beforeAsking_Lv2,beforeAsking_Lv3]
-questionHandling = ["You should know answering a question with a question is quite impolite...", "Hey, I'm the one asking questions here !", "Answering with a question uh?", "You trickster, answering with a question is against the rules !"]
-openAnswerHandling = ["I didn't quite understand that...", "What did you mean there?", "Huh? What does it mean?", "I'm sorry I don't think I got that..."]
+questionHandling = [0, ["...Why don't you answer my question first?", "Answering a question with another question is quite impolite...", "Would you mind stopping answering with questions already ?!","Hey, if you keep answering with questions, then WE'RE DONE PLAYING !!", "I've had it. Bye."]]
+openAnswerHandling = [0, ["Err... you know, you don't have to answer with exactly 'yes' or 'no', but at least give me an answer I can ACTUALLY understand", "Again, I didn't quite catch that, please do an effort and give me a valid answer", "I didn't get it, again. Give me a valid answer or else I'll start thinking you're doing it on purpose", "Could you be just testing my limits? Answer my question or I'll lose my patience !", "Alright, let's end the game. I've had enough !"]]
+noAnswerHandling = [0, ["Answer something at least !", "In this game, staying silent won't help you. You have to answer", "Playing with silent people like you isn't really fun. Please say something", "Well, if you don't want to answer, then I guess there is no point in playing..."]]
 
 #------------- MISCELLANEOUS -------------
 vowels = ["a","i","u","e","o"]
+punctuation =[",", ".", ";", ":", "!", "?"]
 
 def delay_print(s):
     for c in s:
@@ -273,7 +275,7 @@ def modeAnswering() :
     if(len(tabPossibilities) == 1): #Only one animal left
         lastAnimal, value = tabPossibilities.popitem()
         space = " "
-        sentence = ("I would say that your animal is", "an" if lastAnimal[0] in vowels else "a",lastAnimal,"\n")
+        sentence = ("I would say that your animal is", "an" if lastAnimal[0] in vowels else "a",lastAnimal,"\nIs my guess correct?\n")
         delay_print(space.join(sentence))
         answerAnimal = input()
         if(answerYesOrNo(answerAnimal)):
@@ -315,37 +317,69 @@ def modeGuessing() :
     return 0
 
 
-# Retourne 0 si l'input est interprété comme une réponse positive
-# 1 si il est interprété comme une réponse négative
+# Retuens 0 if the input is interpreted as a positive answer
+# 1 otherwise
 def answerYesOrNo(myInput):
     words = myInput.lower().split()
+
+    # Removing punctuation at the end of words to help analyze the Input
+    for word in words:
+        while len(word) > 0 and word[-1] in punctuation:
+            word = word[0:len(word)-1]
+    
     if len(words) > 0:
-        negative, positive = 0, 0,
-        question = True if myInput[len(myInput)-1] == "?" else False
+        negative, positive = 0, 0
+
+        # Checking if the Input is a question
+        question = True if myInput[-1] == "?" else False
+
+
         for word in words:
+            
+            # Counting positive and negative elements in Input
             if "n't" in word or word in noWords:
                 negative += 1
             elif "'s" in word or word in yesWords:
                 positive += 1
-            """elif "?" in word:
-                question = True"""
 
+        # Input is asked again to the player if the Input is a question 
+        # or determining if it was positive or negative was impossible
         if question:
-            randomQuestionHandling = random.choice(questionHandling)
-            delay_print(randomQuestionHandling+" Answer my previous question first.\n") #TODO
-            answer = input()
-            return answerYesOrNo(answer)
+            questionIndex = questionHandling[0]
+            delay_print(questionHandling[1][questionIndex]+"\n")
+            if (questionHandling[0] < len(questionHandling[1])-1):
+                questionHandling[0] += 1
+                answer = input()
+                return answerYesOrNo(answer)
+            else:
+                print("(Your interlocutor left...)")
+                sys.exit(0)
+
+
 
         if negative == 0 and positive == 0:
-            randomOpenAnswerHandling = random.choice(openAnswerHandling)
-            delay_print(randomOpenAnswerHandling+" Please give an affirmative or negative answer.\n") #TODO
-            answer = input()
-            return answerYesOrNo(answer)
+            openAnswerIndex = openAnswerHandling[0]
+            delay_print(openAnswerHandling[1][openAnswerIndex]+"\n")
+            if (openAnswerHandling[0] < len(openAnswerHandling[1])-1):
+                openAnswerHandling[0] += 1
+                answer = input()
+                return answerYesOrNo(answer)
+            else:
+                print("(Your interlocutor left...)")
+                sys.exit(0)
 
+        # The Input is interpreted as a positive answer if there is an even number of negative words
         return negative%2 == 0
 
+    #Input is also asked again if no Input was given
     else :
-        delay_print("Answer something at least ! \n")
-        answer = input()
-        return answerYesOrNo(answer)
+        noAnswerIndex = noAnswerHandling[0]
+        delay_print(noAnswerHandling[1][noAnswerIndex]+"\n")
+        if (noAnswerHandling[0] < len(noAnswerHandling[1])-1):
+            noAnswerHandling[0] += 1
+            answer = input()
+            return answerYesOrNo(answer)
+        else:
+            print("(Your interlocutor left...)")
+            sys.exit(0)
 
