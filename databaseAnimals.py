@@ -2,10 +2,7 @@
 animals = {
 'bird' : { ### CLASS BIRD ###
 
-'crow': {
-'colors':["black"],
-'size':["small"],
-'keyword':[]},
+'crow': { 'colors':["black"], 'size':["small"], 'keyword':[]},
 
 'eagle': { 'colors':[], 'size':["medium"], 'keyword':["sigil of america"]},
 
