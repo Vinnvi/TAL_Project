@@ -12,7 +12,7 @@ loisir = ["sport","movie","movies","danse","video games","reading","walk","sleep
 answerSante = ["Tell me more","Ohh I'm sorry to hear that, please continue, it's important for me and of course for you"]
 answerFamille = ["Tell me more about your family","Oh you talk about your family, it seems to be important for you"]
 answerPays = ["Would you like to travel ? ","Do you have any dream destination ?"]
-answerTravail = ["Are you worried about something, concerning your work ?","Contiue to talk about work, that's interesting"]
+answerTravail = ["Are you worried about something, concerning your work ?","Continue to talk about work, that's interesting"]
 answerLoisir = ["Talk about what you like ","Oh, this activity is your passion? Later, it could be your work!"]
 
 
@@ -56,8 +56,8 @@ def mode2():
 			print(MyAnswer[0])
 
 def mode3():
-	from mode3PSide import mode3PSide
-	#mode3PSide()
+	"""from mode3PSide import mode3PSide
+	mode3PSide()"""
 
 	from modeAnimal import modeAnimal
 	modeAnimal()
