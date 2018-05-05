@@ -2,9 +2,10 @@
 import main
 import modeAnimal
 import databaseAnimals
+from modeAnimal import delay_print
 
 def mode3PSide():
-	print("Ask me a Y/N question about what animal guess, or tell me an animal name :")
+	delay_print("Ask me a Y/N question about an animal, or tell me an animal name :\n")
 
 	#Generate animal to guess
 	classeToGuess,animalToGuess = modeAnimal.chooseRandomAnimal()
@@ -18,9 +19,9 @@ def boucle(classeToGuess,animalToGuess):
 	mots = myInput.lower().split()
 	answer = decomposition_sentence(mots,classeToGuess,animalToGuess)
 	if answer == "ok":
-		print("You guessed it!")
+		delay_print("You guessed it!\n")
 	else :
-		print(answer)
+		delay_print(answer+"\n")
 		boucle(classeToGuess,animalToGuess)
 
 
