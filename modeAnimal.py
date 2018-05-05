@@ -19,12 +19,14 @@ size = ["very small","medium","large","very large"]
 preys = ["mice", "flies", "fish"]
 location = ["south america", "africa", "Europe", "asia", "australia", "north america"]
 status = ["endangered", "safe", "least concern"]
+#Dictionary which contains answers already asked
 dataGuessing = {
 'bird' : {'colors':[], 'size':[], 'keyword':[]},
 'fish' : {'colors':[], 'size':[], 'habitat':[]},
 'insect' : {'colors':[], 'size':[], 'movement':[], 'limbs':[], 'wings':[], 'keyword':[]},
 'mammal' : {'colors':[], 'location':[], 'size':[], 'behaviour':[], 'dietary':[], 'epiderm':[], 'keyword':[]}
 }
+#Queries that will be asked to the player in order to filter the list of possibilities and then find his animal
 queriesCategory = {
 'bird' : {
 'colors':["Maybe the main colors of your animal would be ... ","Is your animal's color ... ", "I see something... I see an animal... ", "Oh but it is... "],
@@ -66,8 +68,10 @@ noWords = ["no", "nor", "not", "neither", "without", "n", "nah", "nope", "wrong"
 answerName = [" That's a weird name but why not, everyone, a round of applause for ",
 " ! The name of a champion ! "]
 queryClass = ["An easy question first. The class of your animal, tell me, is it ... ","No? Hum, What about ","My... what kind of animal is it... maybe ","Still not ! Then "]
+#Reactions that will randomly appear when the bot try to guess the animal
+#Separated in 3 levels depending on the advancement of the game
 beforeAsking_Lv1 = ["So tell me ", "You look extremely confident ", "I would ask...", "What is in your head, Hummm", "I hope it is an easy one", "Hummmm", "Let me think about it a little","Give me a second","My question is...","I'm on fire baby"]
-beforeAsking_Lv2 = ["You are quite tricky, aren't you", "I feel so close", "You are testing my patience","Oh my, it doesn't look good", "I will take that smile out of your face","Ohlala","Me worried ? Not at all.","You're annoying","Think, just think"]
+beforeAsking_Lv2 = ["You are quite tricky, aren't you ?", "I feel so close", "You are testing my patience ","Oh my, it doesn't look good", "I will take that smile out of your face ","Ohlala","Me worried ? Not at all.","You're annoying ","Think, just think"]
 beforeAsking_Lv3 = ["What goddamn animal is left ?", "Come on brain, work !", "Ohlala Ohlala Ohlala","Why ! What animal did you choose !","Is that a real animal at least?", "You are cheating, isn't it?","I don't like to play with you"]
 beforeAsking = [beforeAsking_Lv1,beforeAsking_Lv2,beforeAsking_Lv3]
 questionHandling = [0, ["...Why don't you answer my question first?", "Answering a question with another question is quite impolite...", "Would you mind stopping answering with questions already ?!","Hey, if you keep answering with questions, then WE'RE DONE PLAYING !!", "I've had it. I'm leaving."]]
@@ -81,6 +85,7 @@ punctuation =[",", ".", ";", ":", "!", "?"]
 def wait():
     m.getch()
 
+#Will print the answer in a slow motion, char by char (speed chosen below)
 def delay_print(s):
     for c in s:
         sys.stdout.write(c)
@@ -93,6 +98,11 @@ def updateDataWithName(name):
     answerName[1] = name + answerName[1]
     beforeAsking_Lv1[0] = beforeAsking_Lv1[0]+name
     beforeAsking_Lv1[1] = beforeAsking_Lv1[1]+name
+    beforeAsking_Lv1[6] = beforeAsking_Lv1[6]+name
+    beforeAsking_Lv1[7] = beforeAsking_Lv1[7]+name
+    beforeAsking_Lv2[2] = beforeAsking_Lv2[2]+name
+    beforeAsking_Lv2[4] = beforeAsking_Lv2[4]+name
+    beforeAsking_Lv2[7] = beforeAsking_Lv1[7]+name
 
 # Update the tab of animals that could possibly fit with our profile
 # Return the tab minus the animals that do not validate the criteria
@@ -167,6 +177,7 @@ def answerClassAnimal():
             delay_print("I'm not sure to understand which class you want...")
             return None
 
+#Story where player wants to see the database, will ask which class and will then display the list based upon this class
 def openDatabase():
     delay_print("\nLet's open the gates of Hell !\n")
     print("*CHEERING* *CHEERING* *CHEERING*")
@@ -255,7 +266,7 @@ def modeAnimal():
         delay_print("I suppose it is time for explanations then.\n")
         delay_print("WILD GUESS is a simple game between you and us, and when I say us, I mean me and those genius behind me...\n")
         print("*cheers of crowd*")
-        delay_print("...the objective is to find the animal that the other has in mind. \n2 modes are at your disposal, the first one, the Answering mode, will have you answering to our questions. Should we cannot find the animal in the number of queries then you win and you will go back heavier of a few thousand dollars. But should we succeed... well, let's not talk about that.\nIn the other mode, the Guessing mode, the table is turned and it is your turn to put us on the grill.\n")
+        delay_print("...the objective is to find the animal that the other has in mind. \n2 modes are at your disposal, the first one, the Answering mode, will have you answering to our questions. Should we cannot find the animal then you win and you will go back heavier of a few thousand dollars. But should we succeed... well, let's not talk about that.\nIn the other mode, the Guessing mode, the table is turned and it is your turn to put us on the grill.\n")
     delay_print("\nThen now, it is time to choose the mode, if you want, you can leave the result to our wheel of Fate before you, so, do you want to choose by yourself ?\n")
     answer = input()
     choice = answerYesOrNo(answer)
