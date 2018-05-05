@@ -2,6 +2,8 @@
 import re
 import random
 import mode3PSide
+import mode1
+import mode2
 
 sante = ["health","cancer","disease","pneumonia","pain","head","stomach","belly","tired","suffering","suffer","hiv","aids"]
 famille = ["parents","son","daughter","kids","children","father","dad","daddy","mother","mom","mum","mommy","sister","brother","grandparents","granny","grannies","grandfather","grandmother","cousin","family","wife","husband","uncle","aunt"]
@@ -29,13 +31,13 @@ def mode1():
 		lastAnswer1 = myInput[1]
 		print(myInput[0])
 
-
 def answer(myInput,lastAnswer1):
 	nombreDeBase = random.randint(0,4)
 	while lastAnswer1 == nombreDeBase:
 		nombreDeBase = random.randint(0,4)
 	lastAnswer1 = nombreDeBase
 	return answerMode1[nombreDeBase],lastAnswer1
+
 
 def mode2():
 	print("So , what you want to tell me ? Do you have any problem ?")
@@ -54,13 +56,6 @@ def mode2():
 			1
 		else :
 			print(MyAnswer[0])
-
-def mode3():
-	"""from mode3PSide import mode3PSide
-	mode3PSide()"""
-
-	from modeAnimal import modeAnimal
-	modeAnimal()
 
 def answer2(myInput,n) :
 
@@ -165,6 +160,15 @@ def chooseAnswer(category,n):
 
 	a = [l,nombreDeBase]
 	return a
+
+def mode3():
+	"""from mode3PSide import mode3PSide
+	mode3PSide()"""
+
+	from modeAnimal import modeAnimal
+	modeAnimal()
+
+
 
 #return index(es) of an element in list
 def return_indice(tab,word):

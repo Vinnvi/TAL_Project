@@ -1,24 +1,11 @@
 import random
 
-# Liste de backchannels. Le premier élément indique quel est le dernier appelé
-backchannels = ["", ["Hm hmm", "Oui", "Je vois", "Continuez", "Vous m'interessez"]]
+# Backchannel list
+answerMode1 = ["well...","hummmm...","ehhhh","humm okay I suppose...","continue please",]
 
-# Fonction principale du mode
-def mode1():
-	print("Mode 1 sélectionné")
-	print("Parlez moi de vous, qu'avez vous à me dire?")
-	myInput = input()
-	while 
-
-# Génère une réponse de type backchannel
-def generate_backchannel():
-	res = random.choice(backchannels[1])
-	while res == backchannels[0]:
-		res = random.choice(backchannels[1])
-	backchannels[0] = res
-	return res
-
-if __name__=="__main__":
-	#test generate_backchannels
-	for i in range(1,10):
-		print(generate_backchannel())
+def answer(myInput,lastAnswer1):
+	nombreDeBase = random.randint(0,4)
+	while lastAnswer1 == nombreDeBase:
+		nombreDeBase = random.randint(0,4)
+	lastAnswer1 = nombreDeBase
+	return answerMode1[nombreDeBase],lastAnswer1
