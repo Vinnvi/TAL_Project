@@ -2,11 +2,7 @@
 animals = {
 'bird' : { ### CLASS BIRD ###
 
-<<<<<<< HEAD
 'crow': {'colors':["black"],'size':["small"],'keyword':[]},
-=======
-'crow': { 'colors':["black"], 'size':["small"], 'keyword':[]},
->>>>>>> a1ec43c3c44ece837b8a020cec0e039f20e1b3dd
 
 'eagle': { 'colors':[], 'size':["medium"], 'keyword':["sigil of america"]},
 

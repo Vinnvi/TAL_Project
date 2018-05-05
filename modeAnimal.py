@@ -4,7 +4,6 @@ import random
 import time
 import sys
 import databaseAnimals
-#import msvcrt as m
 import copy
 
 answerRight = 0
@@ -82,8 +81,7 @@ noAnswerHandling = [0, ["Answer something at least !", "In this game, staying si
 vowels = ["a","i","u","e","o"]
 punctuation =[",", ".", ";", ":", "!", "?"]
 
-def wait():
-    m.getch()
+
 
 #Will print the answer in a slow motion, char by char (speed chosen below)
 def delay_print(s):
@@ -282,7 +280,6 @@ def modeAnimal():
             modeAnswering(0)
     else:
         delay_print("Oh ! The Wheel of Fate then, let's spin it ! Just click wherever you want and the wheel will start.\n")
-        wait()
         delay_print("*rolling*\nWhat will be the result, I cannot wait !\n*cheering*\n")
         resultWheel = random.uniform(0, 1)
         if resultWheel :
@@ -388,14 +385,14 @@ def answerYesOrNo(myInput):
             # Removing punctuation at the end of words to help analyze the Input
             while len(word) > 0 and word[-1] in punctuation:
                 word = word[0:len(word)-1]
-            
+
             # Counting positive and negative elements in Input
             if "n't" in word or word in noWords:
                 negative += 1
             elif "'s" in word or word in yesWords:
                 positive += 1
 
-        # Input is asked again to the player if the Input is a question 
+        # Input is asked again to the player if the Input is a question
         # or determining if it was positive or negative was impossible
         # After the Input is asked too many times, the bot gets angry and ends the game
         if question:
