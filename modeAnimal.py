@@ -13,6 +13,8 @@ explanations = "This game is really simple, the main objective is for one of the
 #------------- GUESSING -------------
 colors = ["blue", "black", "brown", "gold", "green", "orange", "pink", "purple", "red", "silver", "white", "yellow","grey"]
 classes = ["mammal","bird","fish","reptile","amphibian","insect"]
+behaviour = ["in group","pack","alone"]
+dietary = ["herbivorous","omnivorous","carnivorous"]
 size = ["very small","medium","large","very large"]
 preys = ["mice", "flies", "fish"]
 location = ["south america", "africa", "Europe", "asia", "australia", "north america"]

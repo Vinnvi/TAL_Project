@@ -35,7 +35,7 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 		elif mots[0] in auxiliary :
 			if mots[1] in poss_pronouns :
 				if mots[2] == "name":
-					if mots[3] == "contains":
+					if mots[3] == "contains" or mots[3] == "contain":
 						if mots[4] == "the":
 							if mots[5] == "letter":
 								return letter_question(mots,6,classeToGuess,animalToGuess)
@@ -92,6 +92,19 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 							return letter_question(mots,4,classeToGuess,animalToGuess)
 			elif mots[1] in subject :
 				if checkConj(mots[1],mots[0]):
+					if mots[2] == "live" or mots[2]=="lives":
+						if mots[3] in modeAnimal.behaviour :
+							return behaviour_question(mots[3],classeToGuess,animalToGuess)
+						if mots[3] == "on" or mots[3]=="in":
+							if mots[4] == "group":
+								return behaviour_question("in group",classeToGuess,animalToGuess)
+							if mots[4]=="the":
+								return live_question(mots,5,classeToGuess,animalToGuess)
+							elif mots[4]=="a":
+								return live_question(mots,5,classeToGuess,animalToGuess)
+							else:
+								return live_question(mots,4,classeToGuess,animalToGuess)
+
 					if mots[2] == "have" :
 						if mots[3] == "many" and mots[4] == "colors":
 							myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
@@ -114,7 +127,22 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 		elif mots[0] in be_verbs :
 			if mots[1] in subject :
 				if checkConj(mots[1],mots[0]):
-					if mots[2] == "big" or mots[2] == "tall" or mots[2]=="large" :
+					if mots[2] in modeAnimal.dietary:
+						return dietary_question(mots[2],classeToGuess,animalToGuess)
+					elif mots[2] == "living":
+						if mots[3] in modeAnimal.behaviour :
+							return behaviour_question(mots[3],classeToGuess,animalToGuess)
+						elif mots[3] == "on" or mots[3]=="in":
+							if mots[4] == "group":
+								return behaviour_question("in group",classeToGuess,animalToGuess)
+							elif mots[4]=="the":
+								return live_question(mots,5,classeToGuess,animalToGuess)
+							elif mots[4]=="a":
+								return live_question(mots,5,classeToGuess,animalToGuess)
+							else:
+								return live_question(mots,4,classeToGuess,animalToGuess)
+
+					elif mots[2] == "big" or mots[2] == "tall" or mots[2]=="large" :
 						myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
 						mySize = myAnimal.get("size")
 						if "large" in mySize :
@@ -140,7 +168,9 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 						else:
 							return "No, it's not "+mots[2]
 					elif mots[2] in a :
-						if mots[3] in gender :
+						if mots[3] in modeAnimal.dietary:
+							return dietary_question(mots[3],classeToGuess,animalToGuess)
+						elif mots[3] in gender :
 							return gender_question(mots,3,classeToGuess,animalToGuess)
 						elif mots[3] in modeAnimal.colors :
 							return color_question(mots,3,classeToGuess,animalToGuess)
@@ -163,10 +193,14 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 		elif mots[0] in be_verbs_n :
 			1
 		elif mots[0] in su_be :
-			if mots[1] in size :
+			if mots[1] in modeAnimal.dietary:
+				return dietary_question(mots[1],classeToGuess,animalToGuess)
+			elif mots[1] in size :
 				return size_question(mots,1,classeToGuess,animalToGuess)
 			elif mots[1] in a :
-				if mots[2] in gender :
+				if mots[2] in modeAnimal.dietary:
+					return dietary_question(mots[2],classeToGuess,animalToGuess)
+				elif mots[2] in gender :
 					return gender_question(mots,2,classeToGuess,animalToGuess)
 				elif mots[2] in modeAnimal.colors :
 					return color_question(mots,2,classeToGuess,animalToGuess)
@@ -183,31 +217,60 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 			elif mots[1] in modeAnimal.colors :
 				return color_question(mots,1,classeToGuess,animalToGuess)
 		elif mots[0] in subject :
+			if mots[1] == "live" or mots[1]=="lives":
+				if mots[2] in modeAnimal.behaviour :
+					return behaviour_question(mots[2],classeToGuess,animalToGuess)
+				if mots[2] == "on" or mots[2]=="in":
+					if mots[3] == "group":
+						return behaviour_question("in group",classeToGuess,animalToGuess)
+					if mots[3]=="the":
+						return live_question(mots,4,classeToGuess,animalToGuess)
+					elif mots[3]=="a":
+						return live_question(mots,4,classeToGuess,animalToGuess)
+					else:
+						return live_question(mots,3,classeToGuess,animalToGuess)
 			if mots[1] in be_verbs :
-				if mots[2] in size :
-					return size_question(mots,2,classeToGuess,animalToGuess)
+				if checkConj(mots[0],mots[1]):
+					if mots[2] in modeAnimal.dietary:
+						return dietary_question(mots[2],classeToGuess,animalToGuess)
+					elif mots[2] == "living":
+						if mots[3] in modeAnimal.behaviour :
+							return behaviour_question(mots[3],classeToGuess,animalToGuess)
+						if mots[3] == "on" or mots[3]=="in":
+							if mots[4] == "group":
+								return behaviour_question("in group",classeToGuess,animalToGuess)
+							if mots[4]=="the":
+								return live_question(mots,5,classeToGuess,animalToGuess)
+							elif mots[4]=="a":
+								return live_question(mots,5,classeToGuess,animalToGuess)
+							else:
+								return live_question(mots,4,classeToGuess,animalToGuess)
+					if mots[2] in size :
+						return size_question(mots,2,classeToGuess,animalToGuess)
 
-				elif mots[2] in action_verbs:
-					1
-				elif mots[2] in a :
-					if mots[3] in gender :
-						return gender_question(mots,3,classeToGuess,animalToGuess)
+					elif mots[2] in action_verbs:
+						1
+					elif mots[2] in a :
+						if mots[3] in modeAnimal.dietary:
+							return dietary_question(mots[3],classeToGuess,animalToGuess)
+						elif mots[3] in gender :
+							return gender_question(mots,3,classeToGuess,animalToGuess)
 
-					if mots[3] in modeAnimal.colors :
-						return color_question(mots,3,classeToGuess,animalToGuess)
-					else :
-
-						for classeA in list(databaseAnimals.animals.keys()) :
-							for an in list(databaseAnimals.animals.get(classeA).keys()) :
-								if an == animalToGuess and animalToGuess==mots[3]:
-									return "ok"
-						#don't manage h case yet (unpredictible)
-						if mots[3][0] == "a" or mots[3][0] == "u" or mots[3][0] == "e" or mots[3][0] == "y" or mots[3][0] == "i" or mots[3][0] == "o":
-							return "No, it's not an "+mots[3]
+						elif mots[3] in modeAnimal.colors :
+							return color_question(mots,3,classeToGuess,animalToGuess)
 						else :
-							return "No it's not a "+mots[3]
-				elif mots[2] in modeAnimal.colors :
-					return color_question(mots,2,classeToGuess,animalToGuess)
+
+							for classeA in list(databaseAnimals.animals.keys()) :
+								for an in list(databaseAnimals.animals.get(classeA).keys()) :
+									if an == animalToGuess and animalToGuess==mots[3]:
+										return "ok"
+							#don't manage h case yet (unpredictible)
+							if mots[3][0] == "a" or mots[3][0] == "u" or mots[3][0] == "e" or mots[3][0] == "y" or mots[3][0] == "i" or mots[3][0] == "o":
+								return "No, it's not an "+mots[3]
+							else :
+								return "No it's not a "+mots[3]
+					elif mots[2] in modeAnimal.colors :
+						return color_question(mots,2,classeToGuess,animalToGuess)
 
 
 			elif mots[1] in be_verbs_n :
@@ -240,7 +303,18 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 					return "conjugation error with have verb"
 
 		elif mots[0] in action_verbs :
-			1
+			if mots[0] == "live" or mots[0]=="living" or mots[0]=="lives":
+				if mots[1] in modeAnimal.behaviour :
+					return behaviour_question(mots[3],classeToGuess,animalToGuess)
+				if mots[1] == "on" or mots[1]=="in":
+					if mots[2] == "group":
+						return behaviour_question("in group",classeToGuess,animalToGuess)
+					if mots[2]=="the":
+						return live_question(mots,3,classeToGuess,animalToGuess)
+					elif mots[2]=="a":
+						return live_question(mots,3,classeToGuess,animalToGuess)
+					else:
+						return live_question(mots,2,classeToGuess,animalToGuess)
 		elif mots[0] in poss_pronouns :
 			if mots[1] == "name":
 				if mots[2] == "contains":
@@ -301,6 +375,37 @@ def decomposition_sentence(mots,classeToGuess,animalToGuess):
 		else :
 			return "error"
 		return "error"
+
+def behaviour_question(mot,classeToGuess,animalToGuess):
+	myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
+	myBehaviour = myAnimal.get("behaviour")
+	if not myBehaviour :
+		return "Sorry, we have no info about its behaviour"
+	elif mot in myBehaviour:
+		return "Yes, he lives "+mot
+	else:
+		return "No, it doesn't live "+mot
+
+def dietary_question(mot,classeToGuess,animalToGuess):
+	myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
+	myDietary = myAnimal.get("dietary")
+	if not myDietary :
+		return "Sorry, we have no info about its dietary"
+	elif mot in myDietary:
+		return "Yes, it's "+mot
+	else:
+		return "No, it's not "+mot
+
+def live_question(mots,level,classeToGuess,animalToGuess):
+	myAnimal = databaseAnimals.animals.get(classeToGuess).get(animalToGuess)
+	myLocation = myAnimal.get("location")
+	if not myLocation :
+		return "It doesn't live in a specific place"
+	else :
+		if mots[level] in myLocation :
+			return "Yes, it lives in "+mots[level]
+		else:
+			return "No, it doesn't live in "+mots[level]
 
 def letter_question(mots,level,classeToGuess,animalToGuess):
 	if not mots[level] :
@@ -420,7 +525,7 @@ letter_verbs = ["start","starts","contains","contain","end","ends","finishes","b
 
 action_verbs = [see,live,fly,swim,crawl,eat]
 t = ["ever","never","already"]
-location = ["grassland","city","water","savannah","forest","jungle","river","mountain","mountains","desert","antartic","sea","floe"]
+location = ["caves","grassland","city","water","savannah","forest","jungle","river","mountain","mountains","desert","antartic","sea","floe"]
 gender  = ["bird","fish","mammal","insect"]
 
 #disable you + is possibility for example (and check 's' for 3rd person)
